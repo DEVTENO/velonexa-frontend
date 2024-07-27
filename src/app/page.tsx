@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import Cookies from "js-cookie";
 export default function Home() {
   return (
     <div>

@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Page() {
-  return <div>Archive Page</div>;
+  return <div>Edit Page</div>;
 }
