@@ -17,12 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         {/* sidebar */}
-        <main className="w-full flex ">
-          <SidebarLayouts />
-          <section className="w-full">{children}</section>
+        <main className="w-full flex">
+          <section
+            className={cn(
+              "sticky top-0  h-screen xl:basis-1/5 sm:w-[4.5rem] ",
+              "bg-white dark:bg-black border border-gray-400"
+            )}
+          ></section>
+          <section className="w-full xl:basis-4/5 ">{children}</section>
         </main>
       </body>
     </html>

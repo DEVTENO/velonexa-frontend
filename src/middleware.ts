@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(req: NextRequest) {
+/**
+ * Middleware function for Next.js server.
+ *
+ * @param {NextRequest} req - The incoming request object.
+ * @returns {Promise<NextResponse>} The response object.
+ */
+export default async function middleware(
+  req: NextRequest
+): Promise<NextResponse> {
   return NextResponse.next();
 }
 

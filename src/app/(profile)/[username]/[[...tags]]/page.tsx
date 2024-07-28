@@ -6,6 +6,7 @@ type ProfileProps = {
 
 const ProfilePage = async ({ params }: ProfileProps) => {
   const { tags } = params;
+  return <div>Postingan</div>;
 };
 
 export default ProfilePage;
