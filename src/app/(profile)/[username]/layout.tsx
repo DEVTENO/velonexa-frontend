@@ -13,8 +13,8 @@ export default function ProfileLayouts({
   return (
     <>
       <UserProfileLayouts username={username} />
-      <NavigationProfile username={username} />
       {children}
+      <div className="w-full text-center py-8">Footer</div>
     </>
   );
 }
