@@ -50,35 +50,7 @@ function UserProfile(data: UserDetail, isUserCurrent: boolean) {
     <>
       <main className={cn("w-full pl-5 py-9", "flex", "ml-auto")}>
         <ProfileImage data={data} />
-        <section className="basis-3/4 text-black px-24">
-          <div className="flex gap-2 items-center  ">
-            <h3 className="text-lg me-4  mt-2 flex gap-2 ">
-              {data.username}{" "}
-              <span>
-                {data.isVerify ? <Verified color="white " fill="blue" /> : null}
-              </span>
-            </h3>
-            {isUserCurrent ? (
-              <CurrentUserActions data={data} />
-            ) : (
-              <OtherUserActions data={data} />
-            )}
-          </div>
-          <div className="flex gap-5 mt-6 text-md">
-            <p>
-              <span className="font-medium">{data.countPost}</span> kiriman{" "}
-            </p>
-            <Link href={`/${data.username}/followers`}>
-              <span className="font-medium">{data.countFollowers}</span>{" "}
-              pengikut{" "}
-            </Link>
-            <Link href={`/${data.username}/following`}>
-              <span className="font-medium">{data.countFollowing}</span> diikuti{" "}
-            </Link>
-          </div>
-          <p className="mt-5 font-medium">{data.name}</p>
-          <p className="mt-5 text-sm">{data.bio}</p>
-        </section>
+        <ProfileInfo data={data} isUserCurrent={isUserCurrent} />
       </main>
       <NavigationProfile
         username={data.username}
@@ -100,6 +72,45 @@ function ProfileImage({ data }: { data: UserDetail }) {
           alt=""
         />
       </div>
+    </section>
+  );
+}
+
+function ProfileInfo({
+  data,
+  isUserCurrent,
+}: {
+  data: UserDetail;
+  isUserCurrent: boolean;
+}) {
+  return (
+    <section className="basis-3/4 text-black px-24">
+      <div className="flex gap-2 items-center  ">
+        <h3 className="text-lg me-4  mt-2 flex gap-2 ">
+          {data.username}{" "}
+          <span>
+            {data.isVerify ? <Verified color="white " fill="blue" /> : null}
+          </span>
+        </h3>
+        {isUserCurrent ? (
+          <CurrentUserActions data={data} />
+        ) : (
+          <OtherUserActions data={data} />
+        )}
+      </div>
+      <div className="flex gap-5 mt-6 text-md">
+        <p>
+          <span className="font-medium">{data.countPost}</span> kiriman{" "}
+        </p>
+        <Link href={`/${data.username}/followers`}>
+          <span className="font-medium">{data.countFollowers}</span> pengikut{" "}
+        </Link>
+        <Link href={`/${data.username}/following`}>
+          <span className="font-medium">{data.countFollowing}</span> diikuti{" "}
+        </Link>
+      </div>
+      <p className="mt-5 font-medium">{data.name}</p>
+      <p className="mt-5 text-sm">{data.bio}</p>
     </section>
   );
 }
