@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.explore-content {
+  @apply grid grid-cols-3;
+}
