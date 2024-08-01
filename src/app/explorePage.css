@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 .explore-content {
-  @apply grid grid-cols-3;
+  @apply container grid grid-cols-3 gap-1 w-full min-h-[80rem] my-6;
+}
+
+div {
+  @apply inline bg-sky-500;
+}
+
+.large-display {
+  @apply row-span-2  bg-green-400;
 }

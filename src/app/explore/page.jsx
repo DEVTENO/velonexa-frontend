@@ -4,12 +4,18 @@ export default function Explore() {
   return (
     <>
       <section className="explore-content">
-        <div>1</div>
+        <div className="">
+          <div className="w-full h-full">1</div>
+        </div>
         <div>2</div>
-        <div>3</div>
+        <div className="large-display">3</div>
         <div>4</div>
         <div>5</div>
-        <div>6</div>
+        <div className="large-display">6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
       </section>
     </>
   );
