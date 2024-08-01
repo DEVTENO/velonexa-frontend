@@ -1,3 +1,4 @@
+"use server";
 import { Camera } from "lucide-react";
 
 type ProfileProps = {
@@ -8,7 +9,16 @@ type ProfileProps = {
 
 const ProfilePage = async ({ params }: ProfileProps) => {
   const { tags } = params;
-  console.log(tags);
+  if (tags !== undefined) {
+    switch (tags[0]) {
+      case "saved":
+        return UserSaved("agung");
+      case "tagged":
+        return UserSaved("alok");
+      default:
+        break;
+    }
+  }
   return (
     <div className="w-full h-96  flex flex-col justify-center items-center gap-3">
       <div className="border border-black rounded-full p-5">
@@ -20,5 +30,13 @@ const ProfilePage = async ({ params }: ProfileProps) => {
     </div>
   );
 };
+
+function UserSaved(user: string) {
+  return (
+    <div>
+      <div>{user} cuy</div>
+    </div>
+  );
+}
 
 export default ProfilePage;
