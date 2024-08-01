@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .explore-content {
-  @apply container grid grid-cols-3 gap-1 w-full min-h-[80rem] my-6;
+  @apply container grid grid-cols-3 gap-1 w-[81%] h-[80rem] my-6;
 }
 
 div {
