@@ -1,6 +1,7 @@
+import React from "react";
 import "../explorePage.css";
 
-export default function Explore() {
+const Explore: React.FC = () => {
   return (
     <>
       <section className="explore-content">
@@ -19,4 +20,6 @@ export default function Explore() {
       </section>
     </>
   );
-}
+};
+
+export default Explore;
