@@ -2,14 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.explore-content {
-  @apply container grid grid-cols-3 gap-1 w-[81%] h-[80rem] my-6;
-}
-
 div {
-  @apply inline bg-sky-500;
+  @apply inline;
 }
 
 .large-display {
-  @apply row-span-2  bg-green-400;
+  @apply row-span-2;
 }

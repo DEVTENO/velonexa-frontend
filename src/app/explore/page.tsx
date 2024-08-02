@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import "../explorePage.css";
 
 type Item = {
@@ -21,35 +23,43 @@ const Explore: React.FC = () => {
   ];
 
   return (
-    <>
-      <section className="explore-content">
-        {items.map(({ id, text }) => (
-          <div key={id} className={`${id % 10 === 3 || id % 10 === 6 ? "large-display" : ""}`}>
-            {text}
-          </div>
-        ))}
-      </section>
-    </>
+    <section className="container relative grid grid-cols-3 gap-1 w-[81%] h-[80rem] my-6">
+      {items.map(({ id, text }) => (
+        <ExploreItem key={id} id={id} text={text} />
+      ))}
+    </section>
   );
+};
 
-  // return (
-  //   <>
-  //     <section className="explore-content">
-  //       <div className="">
-  //         <div className="w-full h-full"></div>
-  //       </div>
-  //       <div>2</div>
-  //       <div className="large-display">3</div>
-  //       <div>4</div>
-  //       <div>5</div>
-  //       <div className="large-display">6</div>
-  //       <div>7</div>
-  //       <div>8</div>
-  //       <div>9</div>
-  //       <div>10</div>
-  //     </section>
-  //   </>
-  // );
+const ExploreItem: React.FC<Item> = ({ id, text }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const isLarge = id % 10 === 3 || id % 10 === 6;
+
+  return (
+    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className={`relative overflow-hidden ${isLarge ? "large-display" : ""}`}>
+      <div className="absolute inset-0 bg-black opacity-30 z-10 flex items-center justify-center text-white">{text}</div>
+      <div className={`absolute inset-0 flex items-center justify-center text-black ${isHovered ? "z-0" : "z-20"} ${isLarge ? "bg-green-400" : "bg-sky-500"}`}>{text}</div>
+    </div>
+  );
 };
 
 export default Explore;
+
+// return (
+//   <>
+//     <section className="explore-content">
+//       <div className="">
+//         <div className="w-full h-full"></div>
+//       </div>
+//       <div>2</div>
+//       <div className="large-display">3</div>
+//       <div>4</div>
+//       <div>5</div>
+//       <div className="large-display">6</div>
+//       <div>7</div>
+//       <div>8</div>
+//       <div>9</div>
+//       <div>10</div>
+//     </section>
+//   </>
+// );
