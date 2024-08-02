@@ -41,11 +41,25 @@ interface UserDetail {
   bio: string;
 }
 
+/**
+ * @typedef UserFollowing -  contain user current / other user followed
+ * @property {string} username - unique name of user
+ * @property {string} profileImage - The URL of the user's image.
+ * @property {string} profileImage - name of user
+ */
+
 interface UserFollowing {
   username: string;
   profileImage: string;
   name: string;
 }
+
+/**
+ * @typedef UserFollowers -  contain user current / other user followers
+ * @property {string} username - unique name of user
+ * @property {string} profileImage - The URL of the user's image.
+ * @property {string} profileImage - name of user
+ */
 
 interface UserFollowers {
   username: string;
@@ -53,4 +67,76 @@ interface UserFollowers {
   name: string;
 }
 
-export type { UserProfile, FetchApiResponse, UserDetail };
+// http://localhost:{{$PORT}}/api/v1/users/me/media?type=posts
+// http://localhost:{{$PORT}}/api/v1/users/me/media - reels
+// http://localhost:{{$PORT}}/api/v1/users/me/bookmarks
+// http://localhost:{{$PORT}}/api/v1/users/me/media/tagged
+
+/**
+ * @typedef UserPost                - contain  current user Post
+ * @property {string} mediaId       - unique id for media post
+ * @property {string} image         - the url of the user's image
+ * @property {number} countLike     - count user like post
+ * @property {number} countComment  - count user comment
+ *
+ */
+
+interface UserPost {
+  mediaId: string;
+  image: string;
+  countLike: number;
+  countComment: number;
+}
+
+/**
+ * @typedef UserReels - contain current user reels
+ * @property {string} mediaId       - unique id for media post
+ * @property {string} image         - the url of the user's image
+ * @property {number} countLike     - count user like post
+ * @property {number} countComment  - count user comment
+ */
+
+interface UserReels {
+  mediaId: string;
+  image: string;
+  countLike: number;
+  countComment: number;
+}
+
+/**
+ * @typedef UserBookmark       - contain current user bookmark
+ * @property {string} id       - unique id for bookmark
+ * @property {string} name     - name bookmark
+ * @property {string} image    - the url of the user's image
+ */
+
+interface UserBookmark {
+  id: string;
+  name: string;
+  images: string[];
+}
+
+/**
+ * @typedef UserTagged - contain current user Tagged
+ * @property {string} mediaId       - unique id
+ * @property {string} image         - the url of the user's image
+ * @property {number} countLike     - count user like post
+ * @property {number} countComment  - count user comment
+ */
+interface UserTagged {
+  mediaId: string;
+  image: string;
+  countLike: number;
+  countComment: number;
+}
+export type {
+  UserProfile,
+  FetchApiResponse,
+  UserDetail,
+  UserFollowers,
+  UserFollowing,
+  UserBookmark,
+  UserReels,
+  UserTagged,
+  UserPost,
+};
