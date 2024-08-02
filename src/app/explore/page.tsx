@@ -24,7 +24,7 @@ const Explore: React.FC = () => {
   ];
 
   return (
-    <section className="container relative grid grid-cols-3 gap-1 w-[81%] h-[80rem] my-6">
+    <section className="container relative grid grid-cols-3 gap-1 auto-rows-fr w-[81%] h-[80rem] my-6">
       {items.map(({ id, text, comment }) => (
         <ExploreItem key={id} id={id} text={text} comment={comment} />
       ))}
