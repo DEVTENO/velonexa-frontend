@@ -1,8 +1,12 @@
 "use server";
 import { ChevronDown, Verified } from "lucide-react";
-import { FetchApiResponse, UserDetail, UserProfile } from "@/lib/types/types";
+import {
+  FetchApiResponse,
+  UserDetail,
+  type UserProfile,
+} from "@/lib/types/types";
 import Cookies from "js-cookie";
-import { userDetail } from "@/lib/constants/fetchapi";
+import { USER_DETAIL } from "@/lib/constants/fetchapi";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -28,9 +32,9 @@ export default async function UserProfileLayouts({
   let jwt = {
     username: "user-1",
   };
-  const { data, success } = userDetail;
   // Temukan User Yang sedang DIcari
-  const findUser = data.filter((item) => item.username == username) ?? [];
+  const findUser =
+    USER_DETAIL.filter((item) => item.username == username) ?? [];
   if (!findUser[0]) {
     return notFound();
   }
