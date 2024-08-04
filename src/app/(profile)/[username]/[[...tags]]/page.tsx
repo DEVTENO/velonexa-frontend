@@ -1,9 +1,10 @@
 "use server";
 import { Bookmark, Camera, UserSquare } from "lucide-react";
 import Cookies from "js-cookie";
-import { FetchApiResponse, UserPost } from "@/lib/types/types";
+import { FetchApiResponse, OtherUserPost, UserPost } from "@/lib/types/types";
 import HoverCard from "@/components/fragments/hoverCard";
 import Image from "next/image";
+import Link from "next/link";
 type ProfileProps = {
   params: {
     tags: string;
@@ -18,16 +19,33 @@ type TokenProps = {
 // http://localhost:{{$PORT}}/api/v1/users/me/media?type=posts
 async function getUserPost(): Promise<FetchApiResponse<UserPost[]>> {
   const res = await fetch(
-    "http:localhost:3000/api/v1/users/me/media?type=posts",
+    `http:localhost:3000/api/v1/users/me/media?type=posts`,
     { cache: "no-store" }
   );
   const response: FetchApiResponse<UserPost[]> = await res.json();
   return response;
 }
 
+//
+async function getOtherUserPost(
+  username: string
+): Promise<FetchApiResponse<OtherUserPost[]>> {
+  const res = await fetch(
+    `http:localhost:3000/api/v1/users/${username}/media?type=posts`,
+    {
+      cache: "no-store",
+    }
+  );
+  const response: FetchApiResponse<OtherUserPost[]> = await res.json();
+  return response;
+}
+
 // http://localhost:{{$PORT}}/api/v1/users/me/media - reels
+async function getUserReels() {}
 // http://localhost:{{$PORT}}/api/v1/users/me/bookmarks
+async function getUserBookmark() {}
 // http://localhost:{{$PORT}}/api/v1/users/me/media/tagged
+async function getUserTagged() {}
 
 const ProfilePage = async ({ params }: ProfileProps) => {
   const { tags, username } = params;
@@ -44,26 +62,38 @@ const ProfilePage = async ({ params }: ProfileProps) => {
         default:
           break;
       }
+    } else {
+      const { data } = await getUserPost();
+      return UserPost(data);
     }
-  }
-  if (tags) {
-    switch (tags[0]) {
-      case "reels":
-        return UserReels();
-      case "tagged":
-        return UserTagged();
-      default:
-        break;
+  } else {
+    if (tags) {
+      switch (tags[0]) {
+        case "reels":
+          return UserReels();
+        case "tagged":
+          return UserTagged();
+        default:
+          break;
+      }
     }
   }
 
-  const { data, message, success } = await getUserPost();
+  const { data } = await getOtherUserPost(username!);
+  return UserPost(data);
+};
+
+async function UserPost(data: OtherUserPost[] | UserPost[]) {
   return (
     <div className={`w-full mt-6`}>
-      {data ? (
+      {data.length > 0 ? (
         <div className="w-full max-w-[55rem] gap-1 flex flex-wrap   m-auto ">
           {data.map((item, i) => (
-            <div key={i} className="w-72 h-72  group relative z-10">
+            <Link
+              href={`/p/${item.mediaId}`}
+              key={item.mediaId}
+              className="w-72 h-72  group relative z-10"
+            >
               <HoverCard
                 countLike={item.countLike}
                 countComment={item.countComment}
@@ -77,7 +107,7 @@ const ProfilePage = async ({ params }: ProfileProps) => {
                   className="w-full object-cover"
                 />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       ) : (
@@ -92,7 +122,7 @@ const ProfilePage = async ({ params }: ProfileProps) => {
       )}
     </div>
   );
-};
+}
 
 async function UserSaved() {
   return (
@@ -121,8 +151,13 @@ function UserTagged() {
 
 function UserReels() {
   return (
-    <div>
-      <div>Reels Cuy</div>
+    <div className="w-full h-96 flex flex-col justify-center items-center">
+      <div className="border border-black rounded-full p-5">
+        <Camera className="" size={50} />
+      </div>
+      <div className="mt-5 text-sm w-52 text-center">
+        Akun ini belum memiliki reels sama sekali.
+      </div>
     </div>
   );
 }
