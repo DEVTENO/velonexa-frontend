@@ -1,5 +1,5 @@
+import { MAX_COUNT } from "@/lib/constants/constants";
 import { Heart, MessageCircle } from "lucide-react";
-import React from "react";
 
 export default function HoverCard(props: {
   countLike: number;
@@ -14,11 +14,17 @@ export default function HoverCard(props: {
       >
         <div className="flex gap-1">
           <Heart fill="white" />
-          {countLike}
+          {countLike >= MAX_COUNT
+            ? `${countLike.toString().slice(0, 2)}` +
+              `,${countLike.toString().slice(3, 4)} rb`
+            : countLike}
         </div>
         <div className="flex gap-1">
           <MessageCircle fill="white" className="-scale-x-100" />
-          {countComment}
+          {countComment >= MAX_COUNT
+            ? countComment.toString().slice(0, 2) +
+              `, ${countComment.toString().slice(3, 4)} rb`
+            : countComment}
         </div>
       </div>
     </>
