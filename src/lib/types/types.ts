@@ -1,6 +1,7 @@
 interface FetchApiResponse<ResultsType> {
   success: boolean;
   message: string;
+  username?: string;
   data: ResultsType;
 }
 
@@ -89,6 +90,21 @@ interface UserPost {
 }
 
 /**
+ * @typedef UserPost                - contain  current user Post
+ * @property {string} mediaId       - unique id for media post
+ * @property {string} image         - the url of the user's image
+ * @property {number} countLike     - count user like post
+ * @property {number} countComment  - count user comment
+ *
+ */
+interface OtherUserPost {
+  mediaId: string;
+  image: string;
+  countLike: number;
+  countComment: number;
+}
+
+/**
  * @typedef UserReels - contain current user reels
  * @property {string} mediaId       - unique id for media post
  * @property {string} image         - the url of the user's image
@@ -139,4 +155,5 @@ export type {
   UserReels,
   UserTagged,
   UserPost,
+  OtherUserPost,
 };
