@@ -2,10 +2,10 @@ import { MAX_COUNT } from "@/lib/constants/constants";
 import { Heart, MessageCircle } from "lucide-react";
 
 export default function HoverCard(props: {
-  countLike: number;
-  countComment: number;
+  countLike?: number;
+  countComment?: number;
 }) {
-  const { countComment, countLike } = props;
+  const { countComment = 0, countLike = 0 } = props;
   return (
     <>
       <div className="group-hover:flex hidden absolute bg-black  inset-0 opacity-35 "></div>
