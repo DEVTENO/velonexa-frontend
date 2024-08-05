@@ -82,7 +82,7 @@ interface UserFollowers {
  *
  */
 
-interface UserPost {
+interface UserPosts {
   mediaId: string;
   image: string;
   countLike: number;
@@ -154,6 +154,6 @@ export type {
   UserBookmark,
   UserReels,
   UserTagged,
-  UserPost,
+  UserPosts,
   OtherUserPost,
 };

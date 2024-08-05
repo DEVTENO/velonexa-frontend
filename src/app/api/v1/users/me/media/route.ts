@@ -1,9 +1,9 @@
 //http://localhost:{{$PORT}}/api/v1/users/me/media?type=posts
 
-import { FetchApiResponse, UserPost } from "@/lib/types/types";
+import { FetchApiResponse, UserPosts } from "@/lib/types/types";
 import { NextRequest, NextResponse } from "next/server";
 
-const userPost: FetchApiResponse<UserPost[]> = {
+const userPost: FetchApiResponse<UserPosts[]> = {
   success: true,
   message: "success",
   data: [
