@@ -1,7 +1,12 @@
 "use server";
 import { Bookmark, Camera, UserSquare } from "lucide-react";
 import Cookies from "js-cookie";
-import { FetchApiResponse, OtherUserPost, UserPost } from "@/lib/types/types";
+import {
+  FetchApiResponse,
+  OtherUserPost,
+  UserBookmark,
+  UserPosts,
+} from "@/lib/types/types";
 import HoverCard from "@/components/fragments/hoverCard";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +22,7 @@ type TokenProps = {
 };
 
 // http://localhost:{{$PORT}}/api/v1/users/me/media?type=posts
-async function getUserPost(): Promise<FetchApiResponse<UserPost[]>> {
+async function getUserPost(): Promise<FetchApiResponse<UserPosts[]>> {
   const res = await fetch(
     `http:localhost:3000/api/v1/users/me/media?type=posts`,
     { cache: "no-store" }
@@ -26,7 +31,6 @@ async function getUserPost(): Promise<FetchApiResponse<UserPost[]>> {
   return response;
 }
 
-//
 async function getOtherUserPost(
   username: string
 ): Promise<FetchApiResponse<OtherUserPost[]>> {
@@ -43,7 +47,13 @@ async function getOtherUserPost(
 // http://localhost:{{$PORT}}/api/v1/users/me/media - reels
 async function getUserReels() {}
 // http://localhost:{{$PORT}}/api/v1/users/me/bookmarks
-async function getUserBookmark() {}
+async function getUserSaved(): Promise<FetchApiResponse<UserBookmark[]>> {
+  const res = await fetch("http://localhost:3000/api/v1/users/me/bookmarks", {
+    cache: "no-store",
+  });
+  const response: FetchApiResponse<UserBookmark[]> = await res.json();
+  return response;
+}
 // http://localhost:{{$PORT}}/api/v1/users/me/media/tagged
 async function getUserTagged() {}
 
@@ -56,13 +66,16 @@ const ProfilePage = async ({ params }: ProfileProps) => {
     if (tags) {
       switch (tags[0]) {
         case "saved":
-          return UserSaved();
+          const { data } = await getUserSaved();
+          console.log(data);
+          return UserSaved(data);
         case "tagged":
           return UserTagged();
         default:
           break;
       }
     } else {
+      // get data post dari user current
       const { data } = await getUserPost();
       return UserPost(data);
     }
@@ -78,12 +91,12 @@ const ProfilePage = async ({ params }: ProfileProps) => {
       }
     }
   }
-
+  // get data user post lain atau yang dicari
   const { data } = await getOtherUserPost(username!);
   return UserPost(data);
 };
 
-async function UserPost(data: OtherUserPost[] | UserPost[]) {
+async function UserPost(data: OtherUserPost[] | UserPosts[]) {
   return (
     <div className={`w-full mt-6`}>
       {data.length > 0 ? (
@@ -124,15 +137,47 @@ async function UserPost(data: OtherUserPost[] | UserPost[]) {
   );
 }
 
-async function UserSaved() {
+async function UserSaved(data: UserBookmark[]) {
   return (
-    <div className="w-full h-96  flex flex-col justify-center items-center gap-3">
-      <div className="border border-black rounded-full p-5">
-        <Bookmark className="" size={50} />
-      </div>
-      <div className="mt-5 text-sm w-52 text-center">
-        Ketika Menyimpan sesuatu, nanti muncul disini
-      </div>
+    <div className={`w-full mt-6`}>
+      {data.length > 0 ? (
+        <div className="w-full max-w-[55rem] gap-1 flex flex-wrap   m-auto ">
+          {data.map((item, i) => (
+            <Link
+              href={
+                item.name === "all-posts"
+                  ? `/saved/${item.name}`
+                  : `/saved/${item.name}/${item.id}`
+              }
+              key={item.id}
+              className="w-72 h-72 bg-red-500 group relative z-10"
+            >
+              <div className="flex group-hover:hidden absolute bg-black  inset-0 opacity-15  "></div>
+              <div className="w-full h-full  overflow-hidden">
+                <Image
+                  width={200}
+                  height={200}
+                  alt=""
+                  src={item.images[1]}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute bottom-2 left-3 text-white dark:text-white text-lg font-semibold">
+                {item.name}
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div className="w-full h-96  flex flex-col justify-center items-center gap-3">
+          <div className="border border-black rounded-full p-5">
+            <Bookmark className="" size={50} />
+          </div>
+          <div className="mt-5 text-sm w-52 text-center">
+            Ketika Menyimpan sesuatu, nanti muncul disini
+          </div>
+        </div>
+      )}
     </div>
   );
 }
