@@ -1,4 +1,5 @@
 import React from "react";
+import {billabong} from "./font"
 
 type LayoutProps = {
     children: React.ReactNode
@@ -6,8 +7,8 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({children}) => {
 return (
-    <div className="border border-red-600 min-h-screen ">
-    <div>{children}</div>
+    <div className={`border mt-3 text-center border-red-600 min-h-[623px] m-auto w-[350px] ${billabong.variable}`}>
+        {children}
     </div>
 )
 }
