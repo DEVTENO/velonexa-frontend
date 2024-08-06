@@ -7,7 +7,7 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({children}) => {
 return (
-    <div className={`border mt-3 text-center border-red-600 min-h-[623px] m-auto w-[350px] ${billabong.variable}`}>
+    <div className={`border mt-3 text-center border-[#DBDBDB] min-h-[623px] m-auto w-[350px] ${billabong.variable}`}>
         {children}
     </div>
 )
