@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# VELONEXA BACKEND DOCUMENTATION
 
-## Getting Started
+## Table of Contents
+1. [Project Overview](#1-project-overview)
+    1. [Introduction](#11-introduction)
+2. [Getting Started](#2-getting-started)
+    1. [Prerequisites](#21-prerequisites)
+    2. [Installation](#22-installation)
+    3. [Configuration](#23-configuration)
+3. [Project Structure](#3-project-structure)
+4. [Coding Guidelines](#4-coding-guidelines)
+    1. [Coding Standards](#41-coding-standards)
+    1. [Commit Message](#42-commit-message)
+5. [Usage](#6-usage)
+7. [LICENSE](#licence)
 
-First, run the development server:
 
+## 1. Project Overview
+#### 1.1 Introduction
+
+Velonexa-frontend is an application frontend that focuses on creating interactive web displays, fast navigation experiences and ensuring a good user experience with certain criteria.
+
+The main goals and objectives of the project are:
+  - Make sure the ui looks good
+  - Ensure high performance and reliability for user experience.
+  - Easy to integrate
+
+
+### 2. Getting Started
+#### 2.1 Prerequisites
+- [Node.js](https://nodejs.org) 18 or higher
+- [Next.Js](https://nextjs.org/docs) 12.8 or higher
+#### 2.2 Installation
+- Step-by-step guide on how to set up the project locally.
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/DEVTENO/velonexa-frontend velonexa-frontend
+
+cd velonexa-frontend
+
+npm install
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### 2.3 Configuration
+Before running, you need to set up the environment variables. Create a .env file based on the provided .env.example file. You can do this by running the following command:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp .env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Instructions on how to configure environment variables and other settings.
 
-## Learn More
+```bash
+# .env file and .env.development file
+API_URL=
+NEXT_PUBLIC_API_URL=
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Project Structure
+Explanation of the project's directory structure.
+```bash
+public/
+src/
+  ├── app/
+  │   ├── (auth)/
+  |   |   ├── register/
+  |   |   ├── login/
+  |   |   ├── layout.tsx
+  |   |   ├── formLayout.tsx
+  │   ├── (profile)/
+  |   ├── explore/
+  │   ├── page.tsx
+  │   ├── layout.tsx
+  │   ├── not-found.tsx
+  |   ├── other/
+  ├── components/
+  │   ├── ui/
+  │   ├── fragments/
+  │   ├── layouts/
+  │   ├── logoRegister.tsx
+  ├── lib/
+  │   ├── constant.ts
+  |   ├── type /
+  |   |   ├── type.ts
+  |   ├── utils.ts 
+  ├── middleware/
+  │   ├─ withAuth.ts
+  ├── middleware.ts
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Coding Guidelines
+#### 4.1 Coding Standards
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Preferred coding style and standards.
+- Linting rules and configuration.
 
-## Deploy on Vercel
+#### 4.2 Commit Message
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Guidelines for writing clear and consistent commit messages.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### 5. Usage
+
+```bash
+
+npm run dev #run as usual
+
+```
+
+TYou can access the endpoints at http://localhost:3000 (assuming the default port is used).
+
+### LICENCE
+MIT Lincense
