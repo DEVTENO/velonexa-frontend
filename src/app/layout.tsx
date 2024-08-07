@@ -21,7 +21,12 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* sidebar */}
         <main className="w-full flex">
-          <section className={cn("sticky top-0  h-screen xl:basis-1/5 sm:w-[4.5rem] ", "bg-white dark:bg-black border border-gray-400")}></section>
+          <section
+            className={cn(
+              "sticky top-0  h-screen xl:w-60 sm:w-[4.5rem] ",
+              "bg-white dark:bg-black border border-gray-400"
+            )}
+          ></section>
           <section className="w-full xl:basis-4/5 ">{children}</section>
         </main>
       </body>
