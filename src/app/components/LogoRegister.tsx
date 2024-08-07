@@ -1,15 +1,15 @@
 import React from "react";
 
 type LogoRegisterProps = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-const LogoRegister: React.FC<LogoRegisterProps> = ({children}) => {
-return (
+const LogoRegister: React.FC<LogoRegisterProps> = ({ children }) => {
+  return (
     <div className="font-[900] tracking-[0.2rem] text-[40px] mt-[46px] font-billabong">
-       {children}                                                                                                                                           
+      {children}
     </div>
-)
-}
+  );
+};
 
-export default LogoRegister
+export default LogoRegister;
