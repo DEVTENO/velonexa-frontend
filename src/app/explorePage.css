@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+div {
+  @apply inline;
+}
+
+.large-display {
+  @apply row-span-2;
+}
