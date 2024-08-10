@@ -19,6 +19,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* sidebar */}
         <main className="w-full flex">
+
           <SidebarLayouts />
           <section className="w-full xl:basis-4/5 ">{children}</section>
         </main>
