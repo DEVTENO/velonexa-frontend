@@ -9,11 +9,12 @@
    2. [Installation](#22-installation)
    3. [Configuration](#23-configuration)
 3. [Project Structure](#3-project-structure)
-4. [Coding Guidelines](#4-coding-guidelines)
-   1. [Coding Standards](#41-coding-standards)
-   1. [Commit Message](#42-commit-message)
-5. [Usage](#6-usage)
-6. [LICENSE](#licence)
+4. [API Guidelines](#4-api-guidelines)
+5. [Coding Guidelines](#5-coding-guidelines)
+   1. [Coding Standards](#51-coding-standards)
+   1. [Commit Message](#52-commit-message)
+6. [Usage](#6-usage)
+7. [LICENSE](#licence)
 
 ## 1. Project Overview
 
@@ -71,6 +72,41 @@ Explanation of the project's directory structure.
 public/
 src/
   ├── app/
+  │   ├── (auth)/
+  |   |   ├── register/
+  |   |   ├── login/
+  |   |   ├── layout.tsx
+  |   |   ├── formLayout.tsx
+  │   ├── (profile)/
+  |   ├── explore/
+  │   ├── page.tsx
+  │   ├── layout.tsx
+  │   ├── not-found.tsx
+  |   ├── other/
+  ├── components/
+  │   ├── ui/
+  │   ├── fragments/
+  │   ├── layouts/
+  │   ├── logoRegister.tsx
+  ├── lib/
+  │   ├── constant.ts
+  |   ├── type /
+  |   |   ├── type.ts
+  |   ├── utils.ts
+  ├── middleware/
+  │   ├─ withAuth.ts
+  ├── middleware.ts
+```
+
+### 4. API Structure
+
+Because FE and BE are still in development stage. we create our own dummy API. by following the agreed endpoints.
+here is the API structure which is in <code>app/api</code>
+
+```bash
+public/
+src/
+  ├── app/
   │   ├── api/
   |   |   ├── v1/
   |   |   |    ├── users/
@@ -87,24 +123,20 @@ src/
 ```
 
 If there is still an API missing in this structure. try to create your own. adjust the one in postman
+an example of creating an API is in the bookmark API, username API
 
-### 4. API Structure
+### 5. Coding Guidelines
 
-Because FE and BE are still in development stage. we create our own dummy API. by following the agreed endpoints.
-here is the API structure which is in <code>app/api</code>
-
-### 4. Coding Guidelines
-
-#### 4.1 Coding Standards
+#### 5.1 Coding Standards
 
 - Preferred coding style and standards.
 - Linting rules and configuration.
 
-#### 4.2 Commit Message
+#### 5.2 Commit Message
 
 - Guidelines for writing clear and consistent commit messages.
 
-### 5. Usage
+### 6. Usage
 
 ```bash
 
