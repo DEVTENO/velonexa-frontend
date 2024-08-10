@@ -1,8 +1,12 @@
 "use server";
 import { ChevronDown, Verified } from "lucide-react";
-import { FetchApiResponse, UserDetail, UserProfile } from "@/lib/types/types";
+import {
+  FetchApiResponse,
+  UserDetail,
+  type UserProfile,
+} from "@/lib/types/types";
 import Cookies from "js-cookie";
-import { userDetail } from "@/lib/constants/fetchapi";
+import { USER_DETAIL } from "@/lib/constants/fetchapi";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -10,6 +14,7 @@ import SettingIconWithModal from "../fragments/setting-with-modal";
 import { Button } from "../ui/button";
 import { notFound } from "next/navigation";
 import NavigationProfile from "../fragments/navigation-profile";
+import { JWT } from "@/lib/constants/constants";
 type UserProfileLayoutsProps = {
   username: string;
 };
@@ -25,17 +30,15 @@ export default async function UserProfileLayouts({
 }: UserProfileLayoutsProps) {
   let isUserCurrent: boolean;
   let token = Cookies.get("access-token") ?? "";
-  let jwt = {
-    username: "user-1",
-  };
-  const { data, success } = userDetail;
+
   // Temukan User Yang sedang DIcari
-  const findUser = data.filter((item) => item.username == username) ?? [];
+  const findUser =
+    USER_DETAIL.filter((item) => item.username == username) ?? [];
   if (!findUser[0]) {
     return notFound();
   }
   // kalau User yang dicari ada dan itu User current
-  if (jwt.username == username) {
+  if (JWT.username == username) {
     isUserCurrent = true;
     return UserProfile(findUser[0], isUserCurrent);
   }
