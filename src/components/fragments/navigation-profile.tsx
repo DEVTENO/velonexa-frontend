@@ -40,14 +40,14 @@ export default function NavigationProfile({
       <div className="w-full flex justify-center gap-10 mt-5">
         <Link
           className={cn("flex justify-center items-center gap-1")}
-          href={`/${username}`}
+          href={pathPost}
         >
           <Grid size={15} /> Postingan
         </Link>
         {isUserCurrent ? (
           <Link
             className="flex justify-center items-center gap-1"
-            href={`/${username}/saved`}
+            href={pathSaved}
           >
             <Bookmark size={15} />
             Tersimpan
@@ -55,7 +55,7 @@ export default function NavigationProfile({
         ) : (
           <Link
             className="flex justify-center items-center gap-1"
-            href={`/${username}/reels`}
+            href={pathReels}
           >
             <Videotape size={15} />
             Reels
@@ -63,7 +63,7 @@ export default function NavigationProfile({
         )}
         <Link
           className="flex justify-center items-center gap-2"
-          href={`/${username}/tagged`}
+          href={pathTagged}
         >
           <UserSquare size={15} /> Ditandai
         </Link>
