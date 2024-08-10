@@ -22,6 +22,7 @@ const DATA_SAVED: FetchApiResponse<UserBookmark[]> = {
         "/image4.jpg",
         "/user-profile.jpg",
         "/image4.jpg",
+        "/user-profile.jpg",
       ],
     },
   ],
