@@ -14,6 +14,7 @@ import SettingIconWithModal from "../fragments/setting-with-modal";
 import { Button } from "../ui/button";
 import { notFound } from "next/navigation";
 import NavigationProfile from "../fragments/navigation-profile";
+import { JWT } from "@/lib/constants/constants";
 type UserProfileLayoutsProps = {
   username: string;
 };
@@ -29,9 +30,7 @@ export default async function UserProfileLayouts({
 }: UserProfileLayoutsProps) {
   let isUserCurrent: boolean;
   let token = Cookies.get("access-token") ?? "";
-  let jwt = {
-    username: "user-1",
-  };
+
   // Temukan User Yang sedang DIcari
   const findUser =
     USER_DETAIL.filter((item) => item.username == username) ?? [];
@@ -39,7 +38,7 @@ export default async function UserProfileLayouts({
     return notFound();
   }
   // kalau User yang dicari ada dan itu User current
-  if (jwt.username == username) {
+  if (JWT.username == username) {
     isUserCurrent = true;
     return UserProfile(findUser[0], isUserCurrent);
   }
