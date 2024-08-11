@@ -4,7 +4,7 @@ import { Camera } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function UserPost(data: OtherUserPost[] | UserPosts[]) {
+export default async function UserPost(data: OtherUserPost[] | UserPosts[] = []) {
   return (
     <div className={`w-full mt-6`}>
       {data.length > 0 ? (
