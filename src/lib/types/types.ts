@@ -2,7 +2,14 @@ interface FetchApiResponse<ResultsType> {
   success: boolean;
   message: string;
   username?: string;
-  data: ResultsType;
+  data?: ResultsType;
+  error?: WebError;
+}
+
+interface WebError {
+  code: number;
+  status: string;
+  message: string;
 }
 
 /**
@@ -131,6 +138,12 @@ interface UserBookmark {
   name: string;
   images: string[];
 }
+interface UserBookmarkDetail {
+  mediaId?: string;
+  image?: string;
+  countLike?: number;
+  countComment?: number;
+}
 
 /**
  * @typedef UserTagged - contain current user Tagged
@@ -155,5 +168,6 @@ export type {
   UserReels,
   UserTagged,
   UserPosts,
+  UserBookmarkDetail,
   OtherUserPost,
 };
