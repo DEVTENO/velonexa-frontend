@@ -1,25 +1,41 @@
 import HoverCard from "@/components/fragments/hoverCard";
-import { Camera } from "lucide-react";
+import { FetchApiResponse, UserBookmarkDetail } from "@/lib/types/types";
+import { Camera, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const getData = async (bookmarkId: string) => {
+const getData = async (bookmarkId: string, username?: string) => {
   const res = await fetch(
     `http://localhost:3000/api/v1/users/me/bookmarks/${bookmarkId}`,
     {
       cache: "no-store",
     }
   );
-  const response = await res.json();
+  const response: FetchApiResponse<UserBookmarkDetail[]> = await res.json();
+  if (!response.success) {
+    redirect(`/${username}/saved`);
+  }
   return response;
 };
-const Page = ({ params }: { params: { slug: string } }) => {
-  const { slug } = params;
-  const data = getData(slug[1]) ?? [];
-  console.log(slug);
+const Page = async ({
+  params,
+}: {
+  params: { slug: string; username: string };
+}) => {
+  const { slug, username } = params;
+  const { data } = await getData(slug[1], username);
+  // console.log(data.length);
   return (
-    <div className={`w-full mt-6`}>
+    <div className={`container mt-6 flex flex-col `}>
+      <div className="ml-16 space-y-3">
+        <Link href={`/${username}/saved`} className="flex ">
+          <ChevronLeft />
+          Tersimpan
+        </Link>
+        <h1 className="ml-2 text-xl">{slug[0]}</h1>
+      </div>
       {data.length > 0 ? (
         <div className="w-full max-w-[55rem] gap-1 flex flex-wrap   m-auto ">
           {data.map((item, i) => (
