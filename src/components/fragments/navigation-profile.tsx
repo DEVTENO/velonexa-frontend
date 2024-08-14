@@ -34,7 +34,8 @@ export default function NavigationProfile({
           pathname === pathSaved || pathname === pathReels
             ? "w-20 -translate-x-[2.6rem]"
             : "",
-          pathname === pathTagged ? "translate-x-[6rem] w-[5rem]" : ""
+          pathname === pathTagged ? "translate-x-[6rem] w-[5rem]" : "",
+          pathname !== pathReels || pathSaved || pathTagged ? "w-20" : ""
         )}
       />
       <div className="w-full flex justify-center gap-10 mt-5">

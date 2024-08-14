@@ -1,10 +1,11 @@
 "use server";
 import Cookies from "js-cookie";
 import { FetchApiResponse, OtherUserPost, UserPosts } from "@/lib/types/types";
-import Image from "next/image";
-import Link from "next/link";
-import UserPost from "./userPost";
 import { notFound } from "next/navigation";
+import UserSaved from "./UserSaved";
+import UserTagged from "./UserTagged";
+import UserReels from "./UserReels";
+import UserPost from "./UserPost";
 type ProfileProps = {
   params: {
     tags: string;
@@ -44,10 +45,28 @@ const ProfilePage = async ({ params }: ProfileProps) => {
   const token: TokenProps = JSON.parse(
     Cookies.get("token") ?? '{"username": "user-1"}'
   );
-  // get data user post lain atau yang dicari
-  if (tags !== undefined) {
-    throw notFound();
+  if (tags) {
+    if (token.username == username) {
+      switch (tags[0]) {
+        case "saved":
+          return UserSaved(username);
+        case "tagged":
+          return UserTagged();
+        default:
+          break;
+      }
+    } else {
+      switch (tags[0]) {
+        case "reels":
+          return UserReels();
+        case "tagged":
+          return UserTagged();
+        default:
+          break;
+      }
+    }
   }
+
   const { data } = await getOtherUserPost(username!);
   return UserPost(data);
 };
