@@ -2,8 +2,22 @@ interface FetchApiResponse<ResultsType> {
   success: boolean;
   message: string;
   username?: string;
-  data: ResultsType;
+  data?: ResultsType;
 }
+
+/**
+ * @typedef {Object} RegisterFormData - Data yang dikirimkan pada saat register
+ * @property {string} username - Username yang unik untuk user. Harus lebih dari 3 karakter.
+ * @property {string} email - Alamat email yang valid.
+ * @property {string} password - Password minimal 8 karakter, harus mengandung huruf besar, huruf kecil, dan angka.
+ * @property {string} confirmPassword - Konfirmasi password, harus sama dengan password.
+ */
+type RegisterFormData = {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 /**
  * @typedef {Object} UserProfile
@@ -156,4 +170,5 @@ export type {
   UserTagged,
   UserPosts,
   OtherUserPost,
+  RegisterFormData,
 };
