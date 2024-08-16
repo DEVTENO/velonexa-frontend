@@ -5,6 +5,16 @@ import LogoRegister from "@/components/ui/LogoRegister";
 import FacebookAuth from "@/components/ui/FacebookAuth";
 import { FetchApiResponse, RegisterFormData } from "@/lib/types/types";
 
+//ini adalah fungsi helper untuk validasi email
+const isEmailValid = (email: string): boolean => {
+  return email.includes("@gmail.com");
+};
+
+//ini adalah fungsi helper untuk validasi username
+const isUsernameValid = (username: string): boolean => {
+  return username.length >= 4;
+};
+
 const Register: React.FC<RegisterFormData> = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
     username: "",
@@ -12,15 +22,43 @@ const Register: React.FC<RegisterFormData> = () => {
     password: "",
     confirmPassword: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const [message, setMessage] = useState<string | null>(null);
-  const [activeButton, setActiveButton] = useState<boolean>(false);
+  const [error, setError] = useState<Partial<RegisterFormData>>({});
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setMessage(null);
-    setActiveButton(false);
 
+    if (
+      !isUsernameValid(formData.username) ||
+      !isEmailValid(formData.email) ||
+      formData.password !== formData.confirmPassword ||
+      formData.password.length < 5 ||
+      formData.confirmPassword.length < 5 ||
+      formData.password.trim() === "" ||
+      formData.confirmPassword.trim() === ""
+    ) {
+      setError({
+        username: !isUsernameValid(formData.username)
+          ? "Username Seharusnya Memiliki Setidaknya 4 Karakter"
+          : undefined,
+        email: !isEmailValid(formData.email)
+          ? "Email Kamu Tidak Menggunakan Gmail"
+          : undefined,
+        confirmPassword:
+          formData.password !== formData.confirmPassword
+            ? "Password Tidak Sama"
+            : formData.password.length < 5 ||
+              formData.confirmPassword.length < 5
+            ? "Password Harus Lebih Dari 5"
+            : formData.password.trim() === "" ||
+              formData.confirmPassword.trim() === ""
+            ? "Password Dan Confirm Password Kosong"
+            : undefined,
+      });
+      return;
+    }
     try {
       const response = await fetch("/api/v1/users/register", {
         method: "POST",
@@ -32,7 +70,6 @@ const Register: React.FC<RegisterFormData> = () => {
         const data =
           (await response.json()) as FetchApiResponse<RegisterFormData>;
         if (data.success) {
-          setIsLoading(false);
           setMessage(data.message);
           console.log(data.data);
           setFormData({
@@ -72,7 +109,7 @@ const Register: React.FC<RegisterFormData> = () => {
         <div className="h-px bg-[#DBDBDB] w-[110px]" />
       </div>
       <div>{message}</div>
-      <form action="" className="mt-[9px]">
+      <form onSubmit={handleSubmit} action="" className="mt-[9px]">
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Username"
@@ -81,6 +118,9 @@ const Register: React.FC<RegisterFormData> = () => {
           value={formData.username}
           onChange={handleChange}
         />
+        {error.username && (
+          <div className="text-red-500 text-sm mt-1">{error.username}</div>
+        )}
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Email"
@@ -89,6 +129,10 @@ const Register: React.FC<RegisterFormData> = () => {
           value={formData.email}
           onChange={handleChange}
         />
+
+        {error.email && (
+          <div className="text-red-500 text-sm mt-1">{error.email}</div>
+        )}
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Password"
@@ -97,6 +141,9 @@ const Register: React.FC<RegisterFormData> = () => {
           value={formData.password}
           onChange={handleChange}
         />
+        {error.password && (
+          <div className="text-red-500 text-sm mt-1">{error.password}</div>
+        )}
         <input
           className="border border-[#dbdbdb] mb-2 p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Confirm Password"
@@ -105,6 +152,11 @@ const Register: React.FC<RegisterFormData> = () => {
           value={formData.confirmPassword}
           onChange={handleChange}
         />
+        {error.confirmPassword && (
+          <div className="text-red-500 text-sm mt-1">
+            {error.confirmPassword}
+          </div>
+        )}
         <span className="flex flex-col text-[12px] tracking-tight text-balance  text-[#737373] ">
           <span className="">
             People who use our service may have uploaded your contact
@@ -115,10 +167,7 @@ const Register: React.FC<RegisterFormData> = () => {
             Policy .
           </span>
         </span>
-        <button
-          onClick={formData.username.length >= 5 ? handleSubmit : ""}
-          className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-lg  mt-[18px]"
-        >
+        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-lg  mt-[18px]">
           Sign up
         </button>
       </form>
