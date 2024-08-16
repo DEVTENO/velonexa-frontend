@@ -38,7 +38,7 @@ export default async function UserProfileLayouts({
     return notFound();
   }
   // kalau User yang dicari ada dan itu User current
-  if (JWT.username == username) {
+  if (JWT.username == username && JWT.username == findUser[0].username) {
     isUserCurrent = true;
     return UserProfile(findUser[0], isUserCurrent);
   }

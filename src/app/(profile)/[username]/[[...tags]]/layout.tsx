@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import ProfileLayouts from "./ProfileLayouts";
 import UserProfileLayouts from "@/components/layouts/user-profile-layouts";
 export default function UserLayouts({
   children,
@@ -11,9 +10,7 @@ export default function UserLayouts({
   const { username } = params;
   return (
     <>
-      <ProfileLayouts username={username}>
-        <UserProfileLayouts username={username} />
-      </ProfileLayouts>
+      <UserProfileLayouts username={username} />
       {children}
       <div className="w-full text-center py-8">Footer</div>
     </>
