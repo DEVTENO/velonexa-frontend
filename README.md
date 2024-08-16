@@ -122,8 +122,9 @@ src/
   |   |   |    ├── media/
 ```
 
-If there is still an API missing in this structure. try to create your own. adjust the one in postman
-an example of creating an API is in the bookmark API, username API
+If there is still an API missing in this structure. try to create your own. adjust the one in postman.
+
+An example of creating an API is in the bookmark API, username API
 
 ### 5. Coding Guidelines
 
