@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 export const billabong = localFont({
   src: [
     {
-      path: "../../../public/fonts/billabong/Billabong.otf",
+      path: "../../public/fonts/billabong/Billabong.otf",
       weight: "400",
       style: "normal",
     },
@@ -15,7 +15,7 @@ export const billabong = localFont({
 export const segoeui = localFont({
   src: [
     {
-      path: "../../../public/fonts/segoeui/SegoeUI.ttf",
+      path: "../../public/fonts/segoeui/SegoeUI.ttf",
       weight: "400",
       style: "normal",
     },
