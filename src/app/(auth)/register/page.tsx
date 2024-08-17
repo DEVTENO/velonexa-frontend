@@ -94,7 +94,7 @@ const Register: React.FC<RegisterFormData> = () => {
   };
 
   return (
-    <div className="container font-segoui">
+    <div className="px-8 pb-8 font-segoui">
       {/* Komponen logo register ada di /src/components/ui/FacebookAuth.tsx */}
       <LogoRegister>
         <h1>VeloneXa</h1>
@@ -167,7 +167,7 @@ const Register: React.FC<RegisterFormData> = () => {
             Policy .
           </span>
         </span>
-        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-lg  mt-[18px]">
+        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]">
           Sign up
         </button>
       </form>

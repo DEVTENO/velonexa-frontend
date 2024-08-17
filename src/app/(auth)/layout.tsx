@@ -7,10 +7,11 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div
-      className={`border mt-3 text-center border-[#DBDBDB] min-h-[623px] m-auto w-[350px] ${segoeui.variable} ${billabong.variable}`}
-    >
-      {children}
+    <div className="h-screen flex justify-center items-center">
+      <div
+        className={`border rounded-lg text-center  w-96 ${segoeui.variable} ${billabong.variable} `}>
+        {children}
+      </div>
     </div>
   );
 };
