@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import SidebarLayouts from "./sidebarLayouts";
+import SidebarLayouts from "./sidebarLayouts"; // Import SidebarLayouts
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,11 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        {/* sidebar */}
-        <main className="w-full flex">
-          <SidebarLayouts />
-          <section className="w-full xl:basis-4/5 ">{children}</section>
-        </main>
+        <SidebarLayouts>{children}</SidebarLayouts>
       </body>
     </html>
   );
