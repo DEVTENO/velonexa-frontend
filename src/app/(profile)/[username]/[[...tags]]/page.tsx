@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import UserSaved from "./UserSaved";
 import UserTagged from "./UserTagged";
 import UserReels from "./UserReels";
-import UserPost from "./UserPost";
+import UserPost from "./userPost";
 type ProfileProps = {
   params: {
     tags: string;
