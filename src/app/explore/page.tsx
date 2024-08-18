@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import "../explorePage.css";
+import { MessageCircle } from "lucide-react";
 
 type Item = {
   id: number;
@@ -24,7 +25,7 @@ const Explore: React.FC = () => {
   ];
 
   return (
-    <section className="container relative grid grid-cols-3 gap-1 auto-rows-fr w-[81%] h-[80rem] my-6">
+    <section className=" container px-12 relative grid grid-cols-3 gap-1   my-6">
       {items.map(({ id, text, comment }) => (
         <ExploreItem key={id} id={id} text={text} comment={comment} />
       ))}
@@ -37,14 +38,24 @@ const ExploreItem: React.FC<Item> = ({ id, text, comment }) => {
   const isLarge = id % 10 === 3 || id % 10 === 6;
 
   return (
-    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className={`relative overflow-hidden cursor-pointer ${isLarge ? "large-display" : ""}`}>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`relative overflow-hidden  w-full min-w-[20rem] h-full min-h-[20rem]   cursor-pointer ${
+        isLarge ? "row-span-2 bg-blue-800" : "bg-red-800"
+      }`}
+    >
       <div className="absolute inset-0 bg-black bg-opacity-30 z-10 flex flex-wrap gap-x-2 items-center justify-center font-bold text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-message-circle">
-          <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-        </svg>
+        <MessageCircle fill="white" />
         <p>{comment}</p>
       </div>
-      <div className={`absolute inset-0 flex items-center justify-center text-black ${isHovered ? "z-0" : "z-20"} ${isLarge ? "bg-green-400" : "bg-sky-500"}`}>{text}</div>
+      <div
+        className={`absolute inset-0 flex items-center justify-center text-black ${
+          isHovered ? "z-0" : "z-20"
+        } ${isLarge ? "bg-green-400" : "bg-sky-500"}`}
+      >
+        {text}
+      </div>
     </div>
   );
 };
