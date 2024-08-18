@@ -1,5 +1,5 @@
 import React from "react";
-import { billabong, segoeui } from "./font";
+import { billabong, segoeui } from "@/app/font";
 
 type LayoutProps = {
   children: React.ReactNode;
