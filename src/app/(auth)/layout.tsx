@@ -13,11 +13,24 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="h-screen flex justify-center items-center">
       <div>
-        <div
-          className={`border rounded-lg text-center  w-96 ${segoeui.variable} ${billabong.variable} `}
-        >
-          {children}
-        </div>
+        {path == "/register" ? (
+          <>
+            <div
+              className={`border rounded-lg text-center w-96 ${segoeui.variable} ${billabong.variable} `}
+            >
+              {children}
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className={`border rounded-lg text-center w-96 ${segoeui.variable} ${billabong.variable} `}
+            >
+              {children}
+            </div>
+          </>
+        )}
+
         <div className="border mt-3 w-96 rounded-lg text-center py-5">
           {path == "/register" ? (
             <>
