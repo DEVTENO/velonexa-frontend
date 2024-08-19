@@ -39,10 +39,14 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
               </LogoRegister>
             </div>
             <nav className="px-2  mt-3 flex flex-col ">
-              <NavText href="/" text="Home">
+              <NavText
+                href="/"
+                text="Home"
+                fontWeight={pathname === "/" && "font-bold"}
+              >
                 <Home />
               </NavText>
-              <NavText href="/#" text="Search">
+              <NavText href={`${pathname}/#`} text="Search">
                 <Search />
               </NavText>
               <NavText href="/explore" text="Explore">
@@ -54,13 +58,13 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
               <NavText href="/direct/inbox" text="Message">
                 <MessageCircle />
               </NavText>
-              <NavText href="/#" text="Notification">
+              <NavText href={`${pathname}/#`} text="Notification">
                 <Heart />
               </NavText>
-              <NavText href="/#" text="Create">
+              <NavText href={`${pathname}/#`} text="Create">
                 <SquarePlus />
               </NavText>
-              <NavText href="/#" text="Profile">
+              <NavText href={`${pathname}/#`} text="Profile">
                 <Image
                   width={500}
                   height={500}
@@ -85,13 +89,14 @@ type NavTextProps = {
   href: string;
   text?: string;
   children?: ReactNode;
+  fontWeight?: string | boolean;
 };
 const NavText = (props: NavTextProps) => {
-  const { href, text, children } = props;
+  const { href, text, children, fontWeight } = props;
   return (
     <Link
       href={href}
-      className={`hover:bg-gray-200 rounded-lg w-full h-14 flex justify-start px-4 items-center gap-5`}
+      className={`hover:bg-gray-200 ${fontWeight} rounded-lg w-full h-14 flex justify-start px-4 items-center gap-5`}
     >
       {children}
       {text}
