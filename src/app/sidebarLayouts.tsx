@@ -12,6 +12,7 @@ export default function SidebarLayouts({
   children: ReactNode;
 }) {
   const pathname = usePathname();
+
   const isAuthRoute = ignorePath.includes(pathname);
 
   return (
