@@ -13,6 +13,17 @@ interface WebError {
 }
 
 /**
+ * @typedef {Object} LoginFormData - Data yang dikirimkan pada saat register
+ * @property {string} username - Username yang unik untuk user. Harus lebih dari 3 karakter.
+ * @property {string} email - Alamat email yang valid.
+ */
+
+type LoginFormData = {
+  username: string;
+  password: string;
+};
+
+/**
  * @typedef {Object} RegisterFormData - Data yang dikirimkan pada saat register
  * @property {string} username - Username yang unik untuk user. Harus lebih dari 3 karakter.
  * @property {string} email - Alamat email yang valid.
@@ -185,4 +196,5 @@ export type {
   UserBookmarkDetail,
   OtherUserPost,
   RegisterFormData,
+  LoginFormData
 };

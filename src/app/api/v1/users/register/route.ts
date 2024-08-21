@@ -14,9 +14,10 @@ export async function POST(req: Request) {
       message: "Pendaftaran Akun Kamu Berhasil",
       data: newUser,
     };
+    console.log(newUser);
 
     return NextResponse.json(res, { status: 201 });
-  } catch (error) {
+  } catch (err) {
     const errorResponse: FetchApiResponse<null> = {
       success: false,
       message: "Internal Server Error",
