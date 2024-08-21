@@ -4,6 +4,7 @@ import { billabong, segoeui } from "@/app/font";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+
 type LayoutProps = {
   children: React.ReactNode;
 };
