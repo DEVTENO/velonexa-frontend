@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+
 import SidebarLayouts from "./sidebarLayouts";
 import { billabong, segoeui } from "./font";
 import { cn } from "@/lib/utils";
+
 export const metadata: Metadata = {
   title: "Velonexa",
   description: "Upload Photo and video anything.",

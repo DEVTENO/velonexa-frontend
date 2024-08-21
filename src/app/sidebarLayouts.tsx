@@ -1,6 +1,7 @@
 "use client";
 import MotionDiv from "@/components/MotionDiv";
 import LogoRegister from "@/components/ui/LogoRegister";
+
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -65,11 +66,13 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
     setIsOpen(false);
   };
   const searchRef = useRef(null);
+
   return (
     <>
       {isAuthRoute ? (
         <main>{children}</main>
       ) : (
+
         <main className="w-full flex ">
           <SearchComponents isOpenSearch={isOpenSearch} />
           <div

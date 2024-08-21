@@ -3,12 +3,16 @@
 import React, { useState } from "react";
 import LogoRegister from "@/components/ui/LogoRegister";
 import FacebookAuth from "@/components/ui/FacebookAuth";
+import { FetchApiResponse, RegisterFormData } from "@/lib/types/types";
 
-type RegisterFormData = {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+//ini adalah fungsi helper untuk validasi email
+const isEmailValid = (email: string): boolean => {
+  return email.includes("@gmail.com");
+};
+
+//ini adalah fungsi helper untuk validasi username
+const isUsernameValid = (username: string): boolean => {
+  return username.length >= 4;
 };
 
 const Register: React.FC<RegisterFormData> = () => {
@@ -19,12 +23,78 @@ const Register: React.FC<RegisterFormData> = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    console.log("berhasil klik", formData);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<Partial<RegisterFormData>>({});
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage(null);
+
+    if (
+      !isUsernameValid(formData.username) ||
+      !isEmailValid(formData.email) ||
+      formData.password !== formData.confirmPassword ||
+      formData.password.length < 5 ||
+      formData.confirmPassword.length < 5 ||
+      formData.password.trim() === "" ||
+      formData.confirmPassword.trim() === ""
+    ) {
+      setError({
+        username: !isUsernameValid(formData.username)
+          ? "Username Seharusnya Memiliki Setidaknya 4 Karakter"
+          : undefined,
+        email: !isEmailValid(formData.email)
+          ? "Email Kamu Tidak Menggunakan Gmail"
+          : undefined,
+        confirmPassword:
+          formData.password !== formData.confirmPassword
+            ? "Password Tidak Sama"
+            : formData.password.length < 5 ||
+              formData.confirmPassword.length < 5
+            ? "Password Harus Lebih Dari 5"
+            : formData.password.trim() === "" ||
+              formData.confirmPassword.trim() === ""
+            ? "Password Dan Confirm Password Kosong"
+            : undefined,
+      });
+      return;
+    }
+    try {
+      const response = await fetch("/api/v1/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data =
+          (await response.json()) as FetchApiResponse<RegisterFormData>;
+        if (data.success) {
+          setMessage(data.message);
+          console.log(data.data);
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+        }
+      } else {
+        const errorData = await response.json();
+        setMessage(errorData.message);
+      }
+    } catch (error) {}
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
   };
 
   return (
-    <div className="container font-segoui">
+    <div className="px-8 pb-8 font-segoui">
       {/* Komponen logo register ada di /src/components/ui/FacebookAuth.tsx */}
       <LogoRegister>
         <h1>VeloneXa</h1>
@@ -38,28 +108,55 @@ const Register: React.FC<RegisterFormData> = () => {
         <div>Atau</div>
         <div className="h-px bg-[#DBDBDB] w-[110px]" />
       </div>
-
-      <form action="" className="mt-[9px]">
+      <div>{message}</div>
+      <form onSubmit={handleSubmit} action="" className="mt-[9px]">
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Username"
           type="text"
+          id="username"
+          value={formData.username}
+          onChange={handleChange}
         />
+        {error.username && (
+          <div className="text-red-500 text-sm mt-1">{error.username}</div>
+        )}
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Email"
           type="text"
+          id="email"
+          value={formData.email}
+          onChange={handleChange}
         />
+
+        {error.email && (
+          <div className="text-red-500 text-sm mt-1">{error.email}</div>
+        )}
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Password"
           type="password"
+          id="password"
+          value={formData.password}
+          onChange={handleChange}
         />
+        {error.password && (
+          <div className="text-red-500 text-sm mt-1">{error.password}</div>
+        )}
         <input
           className="border border-[#dbdbdb] mb-2 p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Confirm Password"
           type="password"
+          id="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
         />
+        {error.confirmPassword && (
+          <div className="text-red-500 text-sm mt-1">
+            {error.confirmPassword}
+          </div>
+        )}
         <span className="flex flex-col text-[12px] tracking-tight text-balance  text-[#737373] ">
           <span className="">
             People who use our service may have uploaded your contact
@@ -70,7 +167,7 @@ const Register: React.FC<RegisterFormData> = () => {
             Policy .
           </span>
         </span>
-        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-lg  mt-[18px]">
+        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]">
           Sign up
         </button>
       </form>
