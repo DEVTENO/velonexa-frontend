@@ -1,7 +1,7 @@
 "use client";
 import MotionDiv from "@/components/MotionDiv";
 import LogoRegister from "@/components/ui/LogoRegister";
-
+import Cookies from "js-cookie";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -18,10 +18,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 const ignorePath = ["/login", "/register"];
-
 export default function SidebarLayouts({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -64,15 +63,15 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
   };
   const handleIsOpenFalse = () => {
     setIsOpen(false);
+    setIsOpenNotification(false);
+    setIsOpenSearch(false);
   };
-  const searchRef = useRef(null);
 
   return (
     <>
       {isAuthRoute ? (
         <main>{children}</main>
       ) : (
-
         <main className="w-full flex ">
           <SearchComponents isOpenSearch={isOpenSearch} />
           <div
@@ -124,85 +123,79 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
                 href="/"
                 text="Home"
                 isOpen={isOpen}
-                onClick={() => setIsOpen(false)}
+                onClick={handleIsOpenFalse}
                 fontWeight={pathname === "/" && "font-bold"}
-              >
-                <Home />
-              </NavText>
+                icon={<Home />}
+              />
               <NavText
                 isOpen={isOpen}
                 onClick={(e) => handleSearchNavigation(e)}
                 href={`${pathname}/#`}
                 text="Search"
-              >
-                <Search />
-              </NavText>
+                icon={<Search />}
+              />
               <NavText
                 isOpen={isOpen}
-                onClick={() => setIsOpen(false)}
+                onClick={handleIsOpenFalse}
                 href="/explore"
                 text="Explore"
                 fontWeight={pathname === "/explore" && "font-bold"}
-              >
-                <Compass />
-              </NavText>
+                icon={<Compass />}
+              />
               <NavText
                 isOpen={isOpen}
-                onClick={() => setIsOpen(false)}
+                onClick={handleIsOpenFalse}
                 href="/reels"
                 text="Reels"
                 fontWeight={pathname === "/reels" && "font-bold"}
-              >
-                <VideoIcon />
-              </NavText>
+                icon={<VideoIcon />}
+              />
               <NavText
                 isOpen={isOpen}
                 onClick={() => setIsOpen(true)}
                 href="/direct/inbox"
                 fontWeight={pathname === "/direct/inbox" && "font-bold"}
                 text="Message"
-              >
-                <MessageCircle />
-              </NavText>
+                icon={<MessageCircle />}
+              />
               <NavText
                 isOpen={isOpen}
                 onClick={(e) => handleNotificationNavigation(e)}
                 href={`${pathname}/#`}
                 text="Notification"
-              >
-                <Heart />
-              </NavText>
+                icon={<Heart />}
+              />
               <NavText
                 isOpen={isOpen}
-                onClick={() => setIsOpen(false)}
+                onClick={handleIsOpenFalse}
                 href={`${pathname}/#`}
                 text="Create"
-              >
-                <SquarePlus />
-              </NavText>
+                icon={<SquarePlus />}
+              />
               <NavText
                 isOpen={isOpen}
-                onClick={() => setIsOpen(false)}
+                onClick={handleIsOpenFalse}
                 href={`/user-1`}
                 fontWeight={pathname === `/user-1` && "font-bold"}
                 text="Profile"
-              >
-                <Image
-                  width={500}
-                  height={500}
-                  alt="Photo-Profile"
-                  src={"/user-profile.jpg"}
-                  className="size-7 rounded-full bg-black "
-                />
-              </NavText>
+                icon={
+                  <Image
+                    width={500}
+                    height={500}
+                    alt="Photo-Profile"
+                    src={"/user-profile.jpg"}
+                    className="size-7 rounded-full bg-black "
+                  />
+                }
+              />
+
               <NavText
                 isOpen={isOpen}
-                onClick={() => setIsOpen(false)}
+                onClick={handleIsOpenFalse}
                 href="/#"
                 text="Lainnya"
-              >
-                <Menu />
-              </NavText>
+                icon={<Menu />}
+              />
             </nav>
           </div>
           <section
@@ -212,6 +205,8 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
                 setIsOpenNotification(false);
                 setIsOpenSearch(false);
               } else {
+                setIsOpenNotification(false);
+                setIsOpenSearch(false);
                 setIsOpen(false);
               }
             }}
@@ -245,7 +240,7 @@ const SearchComponents = (props: { isOpenSearch: boolean }) => {
 type NavTextProps = {
   href: string;
   text?: string;
-  children?: ReactNode;
+  icon?: ReactNode;
   fontWeight?: string | boolean;
   isOpen?: boolean;
   onClick?: (e: React.MouseEvent) => void;
@@ -253,7 +248,7 @@ type NavTextProps = {
 };
 
 const NavText = (props: NavTextProps) => {
-  const { href, text, children, fontWeight, onClick, isOpen, ref } = props;
+  const { href, text, icon, fontWeight, onClick, isOpen, ref } = props;
   return (
     <>
       <Link
@@ -262,7 +257,7 @@ const NavText = (props: NavTextProps) => {
         ref={ref}
         className={`xl:flex hidden hover:bg-gray-200 ${fontWeight} rounded-lg w-full h-14  justify-start px-4 items-center gap-5`}
       >
-        {children}
+        {icon}
         {isOpen ? null : text}
       </Link>
       <Link
@@ -271,7 +266,7 @@ const NavText = (props: NavTextProps) => {
         ref={ref}
         className={`xl:hidden  hover:bg-gray-200 ${fontWeight} rounded-lg w-full h-14 flex justify-start px-4 items-center gap-5`}
       >
-        {children}
+        {icon}
       </Link>
     </>
   );
