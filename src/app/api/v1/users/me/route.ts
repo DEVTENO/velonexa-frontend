@@ -1,5 +1,5 @@
 import { FetchApiResponse, UserProfile } from "@/lib/types/types";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const usersMe: FetchApiResponse<UserProfile> = {
   success: true,
@@ -9,7 +9,9 @@ const usersMe: FetchApiResponse<UserProfile> = {
     isVerify: true,
     profileImage: "/user-profile.jpg",
   },
+  message: "success",
 };
-export async function GET() {
+
+export async function GET(request: NextRequest) {
   return NextResponse.json(usersMe);
 }

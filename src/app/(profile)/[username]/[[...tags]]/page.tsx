@@ -1,10 +1,10 @@
 "use server";
 import Cookies from "js-cookie";
 import { FetchApiResponse, OtherUserPost, UserPosts } from "@/lib/types/types";
-import Image from "next/image";
-import Link from "next/link";
-import UserSaved from "./userSaved";
-import UserReels from "./userReels";
+import { notFound } from "next/navigation";
+import UserSaved from "./UserSaved";
+import UserTagged from "./UserTagged";
+import UserReels from "./UserReels";
 import UserPost from "./userPost";
 type ProfileProps = {
   params: {
@@ -18,20 +18,20 @@ type TokenProps = {
 };
 
 // http://localhost:{{$PORT}}/api/v1/users/me/media?type=posts
-async function getUserPost(): Promise<FetchApiResponse<UserPosts[]>> {
-  const res = await fetch(
-    `http:localhost:3000/api/v1/users/me/media?type=posts`,
-    { cache: "no-store" }
-  );
-  const response: FetchApiResponse<UserPosts[]> = await res.json();
-  return response;
-}
+// async function getUserPost(): Promise<FetchApiResponse<UserPosts[]>> {
+//   const res = await fetch(
+//     `http:localhost:3000/api/v1/users/me/media?type=posts`,
+//     { cache: "no-store" }
+//   );
+//   const response: FetchApiResponse<UserPosts[]> = await res.json();
+//   return response;
+// }
 
 async function getOtherUserPost(
   username: string
 ): Promise<FetchApiResponse<OtherUserPost[]>> {
   const res = await fetch(
-    `http:localhost:3000/api/v1/users/${username}/media?type=posts`,
+    `${process.env.API_URL}/api/v1/users/${username}/media?type=posts`,
     {
       cache: "no-store",
     }
@@ -40,19 +40,33 @@ async function getOtherUserPost(
   return response;
 }
 
-// http://localhost:{{$PORT}}/api/v1/users/me/media - reels
-async function getUserReels() {}
-
-// http://localhost:{{$PORT}}/api/v1/users/me/media/tagged
-async function getUserTagged() {}
-
 const ProfilePage = async ({ params }: ProfileProps) => {
   const { tags, username } = params;
   const token: TokenProps = JSON.parse(
     Cookies.get("token") ?? '{"username": "user-1"}'
   );
+  if (tags) {
+    if (token.username == username) {
+      switch (tags[0]) {
+        case "saved":
+          return UserSaved(username);
+        case "tagged":
+          return UserTagged();
+        default:
+          break;
+      }
+    } else {
+      switch (tags[0]) {
+        case "reels":
+          return UserReels();
+        case "tagged":
+          return UserTagged();
+        default:
+          break;
+      }
+    }
+  }
 
-  // get data user post lain atau yang dicari
   const { data } = await getOtherUserPost(username!);
   return UserPost(data);
 };
