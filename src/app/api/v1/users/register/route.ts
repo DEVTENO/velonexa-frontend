@@ -14,7 +14,6 @@ export async function POST(req: Request) {
       message: "Pendaftaran Akun Kamu Berhasil",
       data: newUser,
     };
-    console.log(newUser);
 
     return NextResponse.json(res, { status: 201 });
   } catch (err) {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import LogoRegister from "@/components/ui/LogoRegister";
+import LogoRegister from "@/components/ui/LogoVelonexa";
 import FacebookAuth from "@/components/ui/FacebookAuth";
 import { FetchApiResponse, RegisterFormData } from "@/lib/types/types";
 
@@ -57,7 +57,6 @@ const Register: React.FC<RegisterFormData> = () => {
             ? "Password Dan Confirm Password Kosong"
             : undefined,
       });
-      return;
     }
     try {
       const response = await fetch("/api/v1/users/register", {
