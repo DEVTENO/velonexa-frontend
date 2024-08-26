@@ -4,16 +4,15 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
 
     try {
+        const dummyUser: LoginFormData = {
+            username: "user-1",
+            password: 'Rahasia@1'
+        }
+
         const body = (await req.json()) as LoginFormData
-        const { username, password } = body
+        const { username, password } = body as LoginFormData
 
-        const isValid = true
-
-        if (isValid) {
-            const dummyUser: LoginFormData = {
-                username: "user-1",
-                password: 'Rahasia@1'
-            }
+        if (dummyUser.username === username && dummyUser.password === password) {
 
             const res: FetchApiResponse<LoginFormData> = {
                 success: true,

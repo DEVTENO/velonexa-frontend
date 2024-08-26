@@ -72,7 +72,6 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
       {isAuthRoute ? (
         <main>{children}</main>
       ) : (
-
         <main className="w-full flex ">
           <SearchComponents isOpenSearch={isOpenSearch} />
           <div

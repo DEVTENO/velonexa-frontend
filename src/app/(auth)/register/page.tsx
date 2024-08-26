@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import LogoRegister from "@/components/ui/LogoVelonexa";
 import FacebookAuth from "@/components/ui/FacebookAuth";
 import { FetchApiResponse, RegisterFormData } from "@/lib/types/types";
@@ -26,19 +27,24 @@ const Register: React.FC<RegisterFormData> = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<Partial<RegisterFormData>>({});
 
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
+    const queryParameter =
+      "Pendaftaran%20akun%20kamu%20berhasil%2C%20silahkan%20login%20%21";
 
-    if (
+    const isValid =
       !isUsernameValid(formData.username) ||
       !isEmailValid(formData.email) ||
       formData.password !== formData.confirmPassword ||
       formData.password.length < 5 ||
       formData.confirmPassword.length < 5 ||
       formData.password.trim() === "" ||
-      formData.confirmPassword.trim() === ""
-    ) {
+      formData.confirmPassword.trim() === "";
+
+    if (isValid) {
       setError({
         username: !isUsernameValid(formData.username)
           ? "Username Seharusnya Memiliki Setidaknya 4 Karakter"
@@ -57,6 +63,7 @@ const Register: React.FC<RegisterFormData> = () => {
             ? "Password Dan Confirm Password Kosong"
             : undefined,
       });
+      return;
     }
     try {
       const response = await fetch("/api/v1/users/register", {
@@ -68,17 +75,28 @@ const Register: React.FC<RegisterFormData> = () => {
       if (response.ok) {
         const data =
           (await response.json()) as FetchApiResponse<RegisterFormData>;
-        if (data.success) {
+        if (!data.success) {
+        } else {
           setMessage(data.message);
-          console.log(data.data);
+          setError({
+            username: undefined,
+            email: undefined,
+            confirmPassword: undefined,
+          });
+
           setFormData({
             username: "",
             email: "",
             password: "",
             confirmPassword: "",
           });
+
+          setTimeout(() => {
+            router.push(`/login?message=${queryParameter}`);
+          }, 3000);
         }
       } else {
+        // ... handle error jika response tidak OK (misalnya status 4xx)
         const errorData = await response.json();
         setMessage(errorData.message);
       }
@@ -107,7 +125,9 @@ const Register: React.FC<RegisterFormData> = () => {
         <div>Atau</div>
         <div className="h-px bg-[#DBDBDB] w-[110px]" />
       </div>
-      <div>{message}</div>
+      <div>
+        <p className="text-green-700">{message}</p>
+      </div>
       <form onSubmit={handleSubmit} action="" className="mt-[9px]">
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
@@ -116,6 +136,7 @@ const Register: React.FC<RegisterFormData> = () => {
           id="username"
           value={formData.username}
           onChange={handleChange}
+          required
         />
         {error.username && (
           <div className="text-red-500 text-sm mt-1">{error.username}</div>
@@ -127,6 +148,7 @@ const Register: React.FC<RegisterFormData> = () => {
           id="email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
 
         {error.email && (
@@ -139,6 +161,7 @@ const Register: React.FC<RegisterFormData> = () => {
           id="password"
           value={formData.password}
           onChange={handleChange}
+          required
         />
         {error.password && (
           <div className="text-red-500 text-sm mt-1">{error.password}</div>
@@ -150,6 +173,7 @@ const Register: React.FC<RegisterFormData> = () => {
           id="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}
+          required
         />
         {error.confirmPassword && (
           <div className="text-red-500 text-sm mt-1">
