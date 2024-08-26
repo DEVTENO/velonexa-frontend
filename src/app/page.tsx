@@ -3,7 +3,7 @@ import { EllipsisVertical, Heart, Share2, Bookmark } from "lucide-react";
 
 const Home: React.FC = () => {
   return (
-    <div className="container relative border-2 border-black mx-1 my-1 flex flex-col w-3/4 min-h-lvh">
+    <div className="container relative border-2 border-black mx-1 my-1 flex flex-col w-[40rem] min-h-lvh">
       <APost />
     </div>
   );
@@ -54,7 +54,7 @@ const APost: React.FC = () => {
       </div>
       <div className="add-comment">
         <form action="">
-          <input className="mx-5 my-4 w-[95%] h-9 border-2 border-black rounded" type="text" placeholder="Comment..." />
+          <input className="mx-5 my-4 px-1 w-[33rem] h-9 border-2 border-black rounded" type="text" placeholder="Comment..." />
         </form>
       </div>
     </div>
