@@ -30,7 +30,6 @@ const Register: React.FC<RegisterFormData> = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
   const router = useRouter();
-
   const isValid =
     !isUsernameValid(formData.username) ||
     !isEmailValid(formData.email) ||
@@ -42,7 +41,7 @@ const Register: React.FC<RegisterFormData> = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(false);
     setMessage(null);
     const queryParameter =
       "Pendaftaran%20akun%20kamu%20berhasil%2C%20silahkan%20login%20%21";
@@ -77,6 +76,7 @@ const Register: React.FC<RegisterFormData> = () => {
       });
       return;
     }
+    setIsLoading(true);
     try {
       const response = await fetch("/api/v1/users/register", {
         method: "POST",
@@ -213,10 +213,10 @@ const Register: React.FC<RegisterFormData> = () => {
           </span>
         </span>
         <button
-          className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]"
+          className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px] "
           disabled={isLoading}
         >
-          {isLoading && isValid ? <AnimasiProses /> : "Daftar"}
+          {isLoading ? <AnimasiProses /> : "Daftar"}
         </button>
       </form>
     </div>
