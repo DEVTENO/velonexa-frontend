@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import AnimasiProses from "@/components/ui/AnimasiProses";
 import LogoRegister from "@/components/ui/LogoVelonexa";
 import FacebookAuth from "@/components/ui/FacebookAuth";
 import { FetchApiResponse, RegisterFormData } from "@/lib/types/types";
@@ -23,14 +24,25 @@ const Register: React.FC<RegisterFormData> = () => {
     password: "",
     confirmPassword: "",
   });
-
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<Partial<RegisterFormData>>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
   const router = useRouter();
 
+  const isValid =
+    !isUsernameValid(formData.username) ||
+    !isEmailValid(formData.email) ||
+    formData.password !== formData.confirmPassword ||
+    formData.password.length < 5 ||
+    formData.confirmPassword.length < 5 ||
+    formData.password.trim() === "" ||
+    formData.confirmPassword.trim() === "";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     setMessage(null);
     const queryParameter =
       "Pendaftaran%20akun%20kamu%20berhasil%2C%20silahkan%20login%20%21";
@@ -92,8 +104,13 @@ const Register: React.FC<RegisterFormData> = () => {
           });
 
           setTimeout(() => {
-            router.push(`/login?message=${queryParameter}`);
-          }, 3000);
+            setIsLoading(false);
+            setIsRegistered(true);
+
+            setTimeout(() => {
+              router.push(`/login?message=${queryParameter}`);
+            }, 3000);
+          }, 2000);
         }
       } else {
         // ... handle error jika response tidak OK (misalnya status 4xx)
@@ -125,10 +142,15 @@ const Register: React.FC<RegisterFormData> = () => {
         <div>Atau</div>
         <div className="h-px bg-[#DBDBDB] w-[110px]" />
       </div>
-      <div>
-        <p className="text-green-700">{message}</p>
-      </div>
+
       <form onSubmit={handleSubmit} action="" className="mt-[9px]">
+        {isRegistered && (
+          <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400">
+            <span className="font-medium">Pendaftaran Berhasil</span>{" "}
+            Mengarahkan ke halaman login
+            <span className="dots text-[27px]"></span>
+          </div>
+        )}
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
           placeholder="Username"
@@ -190,8 +212,11 @@ const Register: React.FC<RegisterFormData> = () => {
             Policy .
           </span>
         </span>
-        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]">
-          Sign up
+        <button
+          className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]"
+          disabled={isLoading}
+        >
+          {isLoading && isValid ? <AnimasiProses /> : "Daftar"}
         </button>
       </form>
     </div>

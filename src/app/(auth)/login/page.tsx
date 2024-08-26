@@ -3,8 +3,8 @@
 import FacebookAuth from "@/components/ui/FacebookAuth";
 import LogoRegister from "@/components/ui/LogoVelonexa";
 import { FetchApiResponse, LoginFormData } from "@/lib/types/types";
-import React, { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 interface ValidationError {
   username?: string[];
@@ -45,9 +45,21 @@ const Login: React.FC = () => {
     password: "",
   });
   const [error, setError] = useState<ValidationError>({});
+  const [showMessage, setShowMessage] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
   const message = searchParams.get("message");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (message) {
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+        router.replace("/login");
+      }, 3000);
+    }
+  }, [message, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -94,7 +106,7 @@ const Login: React.FC = () => {
         <h1>VeloneXa</h1>
       </LogoRegister>
 
-      {message && (
+      {showMessage && (
         <div
           className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
           role="alert"
