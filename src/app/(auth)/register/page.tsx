@@ -30,14 +30,6 @@ const Register: React.FC<RegisterFormData> = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
   const router = useRouter();
-  const isValid =
-    !isUsernameValid(formData.username) ||
-    !isEmailValid(formData.email) ||
-    formData.password !== formData.confirmPassword ||
-    formData.password.length < 5 ||
-    formData.confirmPassword.length < 5 ||
-    formData.password.trim() === "" ||
-    formData.confirmPassword.trim() === "";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,8 +44,9 @@ const Register: React.FC<RegisterFormData> = () => {
       formData.password !== formData.confirmPassword ||
       formData.password.length < 5 ||
       formData.confirmPassword.length < 5 ||
-      formData.password.trim() === "" ||
-      formData.confirmPassword.trim() === "";
+      formData.username.trim() === "" ||
+      formData.email.trim() === "";
+    formData.password.trim() === "" || formData.confirmPassword.trim() === "";
 
     if (isValid) {
       setError({
@@ -146,8 +139,7 @@ const Register: React.FC<RegisterFormData> = () => {
       <form onSubmit={handleSubmit} action="" className="mt-[9px]">
         {isRegistered && (
           <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400">
-            <span className="font-medium">Pendaftaran Berhasil</span>{" "}
-            Mengarahkan ke halaman login
+            <span className="font-medium">{message}</span>
             <span className="dots text-[27px]"></span>
           </div>
         )}

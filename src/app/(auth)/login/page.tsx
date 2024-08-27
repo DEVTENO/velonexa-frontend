@@ -1,5 +1,6 @@
 "use client";
 
+import AnimasiProses from "@/components/ui/AnimasiProses";
 import FacebookAuth from "@/components/ui/FacebookAuth";
 import LogoRegister from "@/components/ui/LogoVelonexa";
 import { FetchApiResponse, LoginFormData } from "@/lib/types/types";
@@ -45,6 +46,8 @@ const Login: React.FC = () => {
     password: "",
   });
   const [error, setError] = useState<ValidationError>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [showMessage, setShowMessage] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
@@ -70,6 +73,8 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(false);
+    setStatusMessage(null);
     const target = e.currentTarget as HTMLFormElement;
     const data: LoginFormData = {
       username: target.username.value,
@@ -79,24 +84,23 @@ const Login: React.FC = () => {
     const { isvalid, error: ValidationError } = ValidasiLoginForm(data);
     setError(ValidationError);
 
-    if (isvalid) {
-      try {
-        const res = await fetch("/api/v1/users/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-        if (!res.ok) {
-          throw new Error("Login Gagal");
-        }
-        const data: FetchApiResponse<LoginFormData> = await res.json();
+    try {
+      const res = await fetch("/api/v1/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        const data = (await res.json()) as FetchApiResponse<LoginFormData>;
 
-        if (data.success) {
+        if (data.success && isvalid) {
+          setStatusMessage(data.message);
         }
-      } catch (error) {}
-    }
+        setIsLoading(true);
+      }
+    } catch (error) {}
   };
 
   return (
@@ -114,6 +118,15 @@ const Login: React.FC = () => {
           <span className="font-medium">{message}</span>
         </div>
       )}
+
+      {statusMessage && (
+        <div
+          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+          role="alert"
+        >
+          <span className="font-medium">{statusMessage}</span>
+        </div>
+      )}
       <form onSubmit={handleSubmit} action="" className="mt-[9px]">
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
@@ -121,6 +134,8 @@ const Login: React.FC = () => {
           type="text"
           id="username"
           name="username"
+          value={formData.username}
+          onChange={handleChange}
         />
         {error.username && (
           <div className="text-red-500 text-sm mt-1">{error.username}</div>
@@ -132,9 +147,14 @@ const Login: React.FC = () => {
           type="password"
           id="password"
           name="password"
+          value={formData.password}
+          onChange={handleChange}
         />
-        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]">
-          Login
+        <button
+          className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]"
+          disabled={isLoading}
+        >
+          {isLoading ? <AnimasiProses /> : "Login"}
         </button>
       </form>
       <div className="flex items-center justify-center gap-2 mt-3">
