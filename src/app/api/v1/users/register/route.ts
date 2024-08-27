@@ -3,7 +3,18 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
+
     const body = (await req.json()) as RegisterFormData;
+
+    if (!body.username || !body.email || !body.password
+    ) {
+      const errorResponse: FetchApiResponse<null> = {
+        success: false,
+        message: 'Data tidak lengkap, harap isi semua field',
+        data: null,
+      }
+      return NextResponse.json(errorResponse, { status: 400 })
+    }
 
     const newUser = {
       id: "user-" + Math.random().toString(36).substring(2),
@@ -14,7 +25,6 @@ export async function POST(req: Request) {
       message: "Pendaftaran Akun Kamu Berhasil",
       data: newUser,
     };
-    console.log(newUser);
 
     return NextResponse.json(res, { status: 201 });
   } catch (err) {
