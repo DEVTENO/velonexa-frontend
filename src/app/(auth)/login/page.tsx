@@ -1,5 +1,6 @@
 "use client";
 
+import AnimasiProses from "@/components/ui/AnimasiProses";
 import FacebookAuth from "@/components/ui/FacebookAuth";
 import LogoRegister from "@/components/ui/LogoVelonexa";
 import { FetchApiResponse, LoginFormData } from "@/lib/types/types";
@@ -13,15 +14,48 @@ interface ValidationError {
 
 const UsernameValidasi = (username: string): string[] => {
   const error: string[] = [];
-  !username || (username == "" && error.push("Username harus diisi"));
-  username.length < 5 && error.push("Username Minimal 5 Karakter");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+if(/^\s*$/.test(username)) {
+  error.push("Username tidak boleh kosong atau hanya spasi");
+}
+
+else if (!emailRegex.test(username.trim())) {
+    // Cek jika hanya spasi atau kosong
+    error.push('Username tidak valid, contoh: emailkamu@gmail.com');
+  }
+  if (username.trim().length < 5) {
+    error.push("Username Minimal 5 Karakter");
+  }
   return error;
 };
 
 const PasswordValidasi = (password: string): string[] => {
   const error: string[] = [];
-  !password || (password == "" && error.push("Password Harus Diisi"));
-  password.length < 6 && error.push("Password Minimal 6 Karakter");
+
+  if (password.length < 8) {
+    error.push("Password harus memiliki setidaknya 8 karakter");
+  }
+  // 2. Validasi huruf besar
+  if (!/[A-Z]/.test(password)) {
+    error.push("Password harus memiliki setidaknya satu huruf besar");
+  }
+
+  if (!/\d/.test(password)) { 
+    error.push("Password harus memiliki setidaknya satu angka"); 
+  }
+
+
+
+  // 3. Validasi karakter spesial
+  if (!/[!@#$%^&*]/.test(password)) { 
+    error.push("Password harus memiliki setidaknya satu karakter spesial (!@#$%^&*)"); 
+  }
+
+  // (Opsional) Validasi panjang minimum 
+ 
+
   return error;
 };
 
@@ -45,6 +79,8 @@ const Login: React.FC = () => {
     password: "",
   });
   const [error, setError] = useState<ValidationError>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [showMessage, setShowMessage] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
@@ -68,8 +104,13 @@ const Login: React.FC = () => {
     }
   };
 
+  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms) )
+ 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatusMessage(null);
+  
+
     const target = e.currentTarget as HTMLFormElement;
     const data: LoginFormData = {
       username: target.username.value,
@@ -81,19 +122,33 @@ const Login: React.FC = () => {
 
     if (isvalid) {
       try {
-        const res = await fetch("/api/v1/users/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-        if (!res.ok) {
-          throw new Error("Login Gagal");
-        }
-        const data: FetchApiResponse<LoginFormData> = await res.json();
+    setIsLoading(true)
+        const [res] = await Promise.all([
+          fetch("/api/v1/users/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }),
+          delay(2000),
+        ]);
+        setIsLoading(false);
+        if (res.ok) {
+          const data = (await res.json()) as FetchApiResponse<LoginFormData>;
 
-        if (data.success) {
+          if (data.success) { 
+            setStatusMessage(data.message);
+
+            setTimeout(() => {
+            router.push('/')
+              
+            }, 2000);
+          } else {
+            setStatusMessage(data.message);
+          }
+        } else {
+          setStatusMessage("Username atau password salah");
         }
       } catch (error) {}
     }
@@ -114,6 +169,15 @@ const Login: React.FC = () => {
           <span className="font-medium">{message}</span>
         </div>
       )}
+
+      {statusMessage && (
+        <div
+          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+          role="alert"
+        >
+          <span className="font-medium">{statusMessage}</span>
+        </div>
+      )}
       <form onSubmit={handleSubmit} action="" className="mt-[9px]">
         <input
           className="border border-[#dbdbdb] p-2 text-[13px] focus:outline-none  focus:border-gray-400 mt-1.5 w-[266px] h-[38px] span-2"
@@ -121,9 +185,11 @@ const Login: React.FC = () => {
           type="text"
           id="username"
           name="username"
+          value={formData.username}
+          onChange={handleChange}
         />
-        {error.username && (
-          <div className="text-red-500 text-sm mt-1">{error.username}</div>
+        {error.username && error.username.length > 0 && (
+          <div className="text-red-500 text-sm mt-1">{error.username[0]}</div>
         )}
 
         <input
@@ -132,9 +198,17 @@ const Login: React.FC = () => {
           type="password"
           id="password"
           name="password"
+          value={formData.password}
+          onChange={handleChange}
         />
-        <button className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]">
-          Login
+        {error.password && error.password.length > 0 && (
+          <div className="text-red-500 text-sm mt-1">{error.password[0]}</div>
+        )}
+        <button
+          className="container text-[14px] leading-[18px] text-white hover:bg-[#1877F2] bg-[#0095F6] w-[17rem] h-[34px] rounded-md  mt-[18px]"
+          disabled={isLoading}
+        >
+          {isLoading ? <AnimasiProses /> : "Login"}
         </button>
       </form>
       <div className="flex items-center justify-center gap-2 mt-3">
