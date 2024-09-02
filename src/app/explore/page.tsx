@@ -41,21 +41,13 @@ const ExploreItem: React.FC<Item> = ({ id, text, comment }) => {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative overflow-hidden  w-full min-w-[20rem] h-full min-h-[20rem]   cursor-pointer ${
-        isLarge ? "row-span-2 bg-blue-800" : "bg-red-800"
-      }`}
+      className={`relative overflow-hidden  w-full min-w-[20rem] h-full min-h-[20rem]   cursor-pointer ${isLarge ? "row-span-2 bg-blue-800" : "bg-red-800"}`}
     >
       <div className="absolute inset-0 bg-black bg-opacity-30 z-10 flex flex-wrap gap-x-2 items-center justify-center font-bold text-white">
         <MessageCircle fill="white" />
         <p>{comment}</p>
       </div>
-      <div
-        className={`absolute inset-0 flex items-center justify-center text-black ${
-          isHovered ? "z-0" : "z-20"
-        } ${isLarge ? "bg-green-400" : "bg-sky-500"}`}
-      >
-        {text}
-      </div>
+      <div className={`absolute inset-0 flex items-center justify-center text-black ${isHovered ? "z-0" : "z-20"} ${isLarge ? "bg-green-400" : "bg-sky-500"}`}>{text}</div>
     </div>
   );
 };
