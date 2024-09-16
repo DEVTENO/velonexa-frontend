@@ -2,12 +2,7 @@ import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
@@ -21,6 +16,7 @@ const config = {
       fontFamily: {
         billabong: ["var(--font-billabong)", "sans-serif"],
         segoui: ["var(--font-segoui)", "sans-serif"],
+        poppins: ["var(--font-poppins)", "sans-serif"],
       },
       colors: {
         "gray-light": "#EFEFEF",
@@ -57,6 +53,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        buttonBg: "#EFF4FF",
+        borderButton: "#A7C0FF",
+        textButton: "#5484FF",
       },
       borderRadius: {
         lg: "var(--radius)",
