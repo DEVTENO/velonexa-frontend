@@ -56,6 +56,9 @@ const config = {
         buttonBg: "#EFF4FF",
         borderButton: "#A7C0FF",
         textButton: "#5484FF",
+        settingUiBg: "#F8F8F8",
+        settingUiBorder: "#EFEFEF",
+        secondaryText: "#999999",
       },
       borderRadius: {
         lg: "var(--radius)",

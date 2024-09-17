@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
+import ProfileLayout from "@/components/layouts/setting-profile-layout";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const pathname = usePathname();
@@ -8,6 +9,6 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   switch (route) {
     case "/setting-profile/profile":
-      return <div className="mt-[7.5rem] border border-black">Profile</div>;
+      return <ProfileLayout />;
   }
 }
