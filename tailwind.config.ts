@@ -59,6 +59,11 @@ const config = {
         settingUiBg: "#F8F8F8",
         settingUiBorder: "#EFEFEF",
         secondaryText: "#999999",
+        inputProfileBg: "#F5F5F5",
+        inputProfileBorder: "#F0F0F0",
+        placeholderProfile: "#BDBDBD",
+        updateButtonBg: "#EFF4FF",
+        updateBtn: "#3971FF",
       },
       borderRadius: {
         lg: "var(--radius)",
