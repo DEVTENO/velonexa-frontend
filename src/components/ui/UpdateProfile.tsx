@@ -6,13 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-  username: z.string().min(2, { message: "Username minimal 2 karakter" }).max(50, { message: "Username maksimal 50 karakter" }),
-  bio: z.string(),
-  name: z.string(),
+  username: z.string().min(6, { message: "Username at least 6 characters" }).max(16, { message: "Username maximum 16 characters" }),
+  bio: z.string().max(200, { message: "Bio maximum 200 characters" }),
+  name: z.string().min(6, { message: "Name at least 6 characters" }).max(16, { message: "Name maximum 16 characters" }),
   gender: z.string(),
 });
 
@@ -31,12 +31,13 @@ const UpdateProfile: React.FC = () => {
 
   function onSubmit(values: FormData) {
     console.log(values);
+    form.reset();
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="">
-        <div className="w-[45.875rem] h-[26.063rem] py-[2.313rem] pl-[2.563rem] bg-settingUiBg border border-settingUiBorder rounded-[1.688rem] relative">
+        <div className="w-[45.875rem] min-h-[26.063rem] mb-4 py-[2.313rem] pl-[2.563rem] bg-settingUiBg border border-settingUiBorder rounded-[1.688rem] relative">
           <div className="flex flex-col mb-[2.063rem]">
             <p className="font-medium text-[1.188rem]">Profile</p>
             <p className="font-normal text-[0.938rem] text-secondaryText">Update your account settings</p>
@@ -49,9 +50,14 @@ const UpdateProfile: React.FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]" placeholder="Bio" {...field} />
+                      <Input
+                        autoComplete="off"
+                        className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]"
+                        placeholder="Bio"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
@@ -63,9 +69,14 @@ const UpdateProfile: React.FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]" placeholder="Name" {...field} />
+                      <Input
+                        autoComplete="off"
+                        className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]"
+                        placeholder="Name"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
@@ -77,9 +88,14 @@ const UpdateProfile: React.FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]" placeholder="Username" {...field} />
+                      <Input
+                        autoComplete="off"
+                        className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]"
+                        placeholder="Username"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
@@ -91,16 +107,21 @@ const UpdateProfile: React.FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]" placeholder="Gender" {...field} />
+                      <Input
+                        autoComplete="off"
+                        className="w-[40.5rem] h-[3.25rem] rounded-[0.438rem] bg-inputProfileBg border border-inputProfileBorder placeholder-placeholderProfile placeholder:italic pl-[1.25rem]"
+                        placeholder="Gender"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
             </div>
           </div>
         </div>
-        <Button type="submit" className="border border-updateBtn bg-updateButtonBg w-[9.75rem] h-[2.688rem] ml-[36.125rem] mt-4 rounded-[0.813rem] text-updateBtn hover:bg-updateBtn hover:text-white flex items-center justify-center">
+        <Button type="submit" className="border border-updateBtn bg-updateButtonBg w-[9.75rem] h-[2.688rem] ml-[36.125rem] rounded-[0.813rem] text-updateBtn hover:bg-updateBtn hover:text-white flex items-center justify-center">
           Update
         </Button>
       </form>
