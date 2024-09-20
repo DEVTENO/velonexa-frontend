@@ -48,7 +48,7 @@ const UpdateProfile: React.FC = () => {
                 control={form.control}
                 name="bio"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-1">
                     <FormControl>
                       <Input
                         autoComplete="off"
@@ -57,7 +57,7 @@ const UpdateProfile: React.FC = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-xs" />
+                    <FormMessage className="text-xs h-2" />
                   </FormItem>
                 )}
               />
@@ -67,7 +67,7 @@ const UpdateProfile: React.FC = () => {
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-1">
                     <FormControl>
                       <Input
                         autoComplete="off"
@@ -76,7 +76,7 @@ const UpdateProfile: React.FC = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-xs" />
+                    <FormMessage className="text-xs h-2" />
                   </FormItem>
                 )}
               />
@@ -86,7 +86,7 @@ const UpdateProfile: React.FC = () => {
                 control={form.control}
                 name="username"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-1">
                     <FormControl>
                       <Input
                         autoComplete="off"
@@ -95,7 +95,7 @@ const UpdateProfile: React.FC = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-xs" />
+                    <FormMessage className="text-xs h-2" />
                   </FormItem>
                 )}
               />
@@ -105,7 +105,7 @@ const UpdateProfile: React.FC = () => {
                 control={form.control}
                 name="gender"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-1">
                     <FormControl>
                       <Input
                         autoComplete="off"
@@ -114,7 +114,7 @@ const UpdateProfile: React.FC = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-xs" />
+                    <FormMessage className="text-xs h-2" />
                   </FormItem>
                 )}
               />
