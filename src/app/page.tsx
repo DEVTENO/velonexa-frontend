@@ -12,21 +12,15 @@ type Item = {
 };
 
 const Home: React.FC = () => {
-  const items: Item[] = [
-    { id: 1, userName: "User 1", timeStamp: 10, totalLike: 15, totalComment: 102 },
-    { id: 2, userName: "User 2", timeStamp: 11, totalLike: 18, totalComment: 55 },
-  ];
-
-  return (
-    <div className="container relative border-2 border-black rounded-xl ml-52 my-1 flex flex-col max-w-[35rem] min-h-lvh">
-      {items.map(({ id, userName, timeStamp, totalLike, totalComment }) => (
-        <APost id={id} userName={userName} timeStamp={timeStamp} totalLike={totalLike} totalComment={totalComment} />
-      ))}
-    </div>
-  );
+  return <div>dskl</div>;
 };
 
-const APost: React.FC<Item> = ({ userName, timeStamp, totalLike, totalComment }) => {
+const APost: React.FC<Item> = ({
+  userName,
+  timeStamp,
+  totalLike,
+  totalComment,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -57,7 +51,13 @@ const APost: React.FC<Item> = ({ userName, timeStamp, totalLike, totalComment })
           <div className="flex flex-wrap justify-between w-[27.1rem] -ml-8">
             <div className="left-elem px-2 flex items-center">
               <button onClick={() => setIsLiked(!isLiked)}>
-                <Heart className={`${isLiked ? "fill-red-500 text-red-500 hover:text-red-500" : "hover:text-gray-500"}`} />
+                <Heart
+                  className={`${
+                    isLiked
+                      ? "fill-red-500 text-red-500 hover:text-red-500"
+                      : "hover:text-gray-500"
+                  }`}
+                />
               </button>
               <button className="ml-5">
                 <Share2 className="hover:text-gray-500" />
@@ -65,7 +65,13 @@ const APost: React.FC<Item> = ({ userName, timeStamp, totalLike, totalComment })
             </div>
             <div className="right-elem px-4 flex items-center">
               <button onClick={() => setIsSaved(!isSaved)}>
-                <Bookmark className={`${isSaved ? "fill-black text-black hover:text-black" : "hover:text-gray-500"}`} />
+                <Bookmark
+                  className={`${
+                    isSaved
+                      ? "fill-black text-black hover:text-black"
+                      : "hover:text-gray-500"
+                  }`}
+                />
               </button>
             </div>
           </div>
@@ -73,12 +79,18 @@ const APost: React.FC<Item> = ({ userName, timeStamp, totalLike, totalComment })
         <div className="flex flex-col w-[27.1rem] -ml-6 mt-2">
           <div>{totalLike} likes</div>
           <div>Ini adalah deskripsi post</div>
-          <div className="text-slate-500 text-sm cursor-pointer">see {totalComment} comments</div>
+          <div className="text-slate-500 text-sm cursor-pointer">
+            see {totalComment} comments
+          </div>
         </div>
         <div className="add-comment">
           <form action="">
             {/* <input className="border-2 border-black rounded w-[25.4rem] -ml-6 mt-3 px-1" type="text" placeholder="Comment..." /> */}
-            <textarea rows={1} className="overflow-y-auto border-2 border-black rounded w-[25.4rem] -ml-6 mt-3 p-1 max-h-24" placeholder="Comment..."></textarea>
+            <textarea
+              rows={1}
+              className="overflow-y-auto border-2 border-black rounded w-[25.4rem] -ml-6 mt-3 p-1 max-h-24"
+              placeholder="Comment..."
+            ></textarea>
           </form>
         </div>
       </div>
