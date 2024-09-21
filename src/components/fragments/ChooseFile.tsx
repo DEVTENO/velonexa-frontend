@@ -15,63 +15,74 @@ import {
 
 export const ChooseFile = () => {
   const [isHoveredFeed, setIsHoveredFeed] = useState<boolean>(false);
-  const [isHoveredReels, setIsHoveredReels] = useState<boolean>(false);
+  const [isReelsActive, setIsReelsActive] = useState<boolean>(false);
+
+  function handleReelsActive() {
+    setIsHoveredFeed(false);
+    setIsReelsActive(true);
+  }
+
+  function handleFeedsActive() {
+    setIsReelsActive(false);
+    setIsHoveredFeed(true);
+  }
+
+  function allDeactivateButton() {
+    setIsReelsActive(false);
+    setIsHoveredFeed(false);
+  }
 
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger className="flex justify-between flex-nowrap">
+        <AlertDialogTrigger className="flex justify-between flex-col">
           Open
         </AlertDialogTrigger>
-        <AlertDialogContent
-          onMouseEnter={() => setIsHoveredFeed(true)}
-          onMouseLeave={() => setIsHoveredFeed(false)}
-          className=" h-10 w-10 absolute top-10 ml-[600px]"
-        >
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
+        <AlertDialogContent className=" grid grid-flow-col-dense">
+          <AlertDialogHeader className="">
+            <AlertDialogTitle className="flex m-auto h-[270px]">
+              {isReelsActive
+                ? "Drag & Drop Your Reels"
+                : isHoveredFeed
+                ? "Drag & Drop Your Feeds"
+                : "Choose One"}
+            </AlertDialogTitle>
+            <AlertDialogDescription
+              onClick={handleReelsActive}
+              className="absolute  top-16 left-5"
+            >
+              <Reels
+                className={`cursor-pointer hover:bg-[#3971FF]  border rounded-xl 
+                   ${isReelsActive ? "bg-[#3971FF]  text-white" : ""}`}
+                fill={`${isReelsActive ? "#ffffff" : "#CFCFCF"}`}
+                isActive={isReelsActive}
+              />
+            </AlertDialogDescription>
+            <AlertDialogDescription
+              className=" absolute top-16 right-5"
+              onClick={handleFeedsActive}
+            >
               <Feeds
-                className={`cursor-pointer ${
-                  isHoveredFeed ? "bg-[#3971FF] text-white" : "bg-white"
+                className={`cursor-pointer hover:bg-[#3971FF] ${
+                  isHoveredFeed ? " bg-[#3971FF] text-white" : ""
                 } rounded-xl`}
                 fill={`${isHoveredFeed ? "#ffffff" : "#CFCFCF"}`}
               />
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogFooter className="flex absolute top-[250px] ml-20 gap-[220px] right-[40px] flex-grow justify-evenly ">
+            <AlertDialogCancel
+              onClick={allDeactivateButton}
+              className="mr-[40px] flex"
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction className="flex right-6 ml-[50px]">
+              Continue
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-      <div className="flex justify-between flex-nowrap">
-        <div
-          onMouseEnter={() => setIsHoveredFeed(true)}
-          onMouseLeave={() => setIsHoveredFeed(false)}
-          className=" h-10 w-10 absolute top-10 ml-[600px]"
-        >
-          <Feeds
-            className={`cursor-pointer ${
-              isHoveredFeed ? "bg-[#3971FF] text-white" : "bg-white"
-            } rounded-xl`}
-            fill={`${isHoveredFeed ? "#ffffff" : "#CFCFCF"}`}
-          />
-        </div>
-        <div
-          onMouseEnter={() => setIsHoveredReels(true)}
-          onMouseLeave={() => setIsHoveredReels(false)}
-          className=" h-10 w-10 absolute top-10 ml-[800px]"
-        >
-          <Reels
-            className={`cursor-pointer border ${
-              isHoveredReels ? "bg-[#3971FF] text-white" : "bg-white"
-            } rounded-xl`}
-            fill={`${isHoveredReels ? "#ffffff" : "#CFCFCF"}`}
-          />
-        </div>
-      </div>
     </>
   );
 };

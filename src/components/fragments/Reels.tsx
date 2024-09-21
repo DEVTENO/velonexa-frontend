@@ -3,16 +3,17 @@ import React from "react";
 interface ReelsProps {
   className: string;
   fill: string;
+  isActive: boolean;
 }
 
-export const Reels: React.FC<ReelsProps> = ({ className, fill }) => {
+export const Reels: React.FC<ReelsProps> = ({ className, fill, isActive }) => {
   return (
     <svg
       className={`${className}`}
       width="154"
       height="135"
       viewBox="0 0 154 135"
-      fill="none"
+      fill={isActive ? "#3971FF" : "none"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect width="154" height="135" rx="12" fill="" />
