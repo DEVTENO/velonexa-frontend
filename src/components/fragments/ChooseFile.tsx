@@ -1,4 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { FilePond, registerPlugin } from "react-filepond";
+import "filepond/dist/filepond.min.css";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 import { Feeds } from "./Feeds";
 import { Reels } from "./Reels";
 import {
@@ -62,6 +68,7 @@ export const ChooseFile = () => {
               className=" absolute top-16 right-5"
               onClick={handleFeedsActive}
             >
+              <div></div>
               <Feeds
                 className={`cursor-pointer hover:bg-[#3971FF] ${
                   isHoveredFeed ? " bg-[#3971FF] text-white" : ""
