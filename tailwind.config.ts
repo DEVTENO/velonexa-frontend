@@ -14,13 +14,18 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1440px",
       },
     },
     extend: {
+      screens: {
+        "2xl": "1440px",
+        // => @media (min-width: 992px) { ... }
+      },
       fontFamily: {
         billabong: ["var(--font-billabong)", "sans-serif"],
         segoui: ["var(--font-segoui)", "sans-serif"],
+        poppins: ["var(--font-poppins)", "sans-serif"],
       },
       colors: {
         "gray-light": "#EFEFEF",

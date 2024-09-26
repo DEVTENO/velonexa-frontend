@@ -13,6 +13,7 @@ type Item = {
 };
 
 const Home: React.FC = () => {
+
   const items: Item[] = [
     {
       id: 1,
@@ -74,6 +75,7 @@ const APost: React.FC<Item> = ({
               </div>
             </div>
           </div>
+
           <div className="image-elem">
             <div className="relative border-2 w-[27.3rem] min-h-[26.5rem] -ml-8 my-3 border-black rounded-2xl">
               <div className="absolute inset-0"></div>
