@@ -12,6 +12,21 @@ const usersMe: FetchApiResponse<UserProfile> = {
   message: "success",
 };
 
+const errorResponse: FetchApiResponse<null> = {
+  success: false,
+  message: "Internal server error",
+  error: {
+    code: 401,
+    message: "Authentication is expired",
+    status: "error",
+  },
+};
+
 export async function GET(request: NextRequest) {
-  return NextResponse.json(usersMe);
+  const isValid = true;
+  if (isValid) {
+    return NextResponse.json(usersMe, { status: 200 });
+  } else {
+    return NextResponse.json(errorResponse, { status: 401 });
+  }
 }
