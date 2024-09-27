@@ -1,7 +1,6 @@
 "use client";
 import MotionDiv from "@/components/MotionDiv";
 import LogoRegister from "@/components/ui/LogoRegister";
-import Cookies from "js-cookie";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -22,7 +21,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, useState } from "react";
 
-const ignorePath = ["/login", "/register"];
+const ignorePath = [
+  "/login",
+  "/register",
+  "/auth/login",
+  "/auth/register",
+  "/auth/test",
+  "/auth/belajar",
+];
 export default function SidebarLayouts({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
