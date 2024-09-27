@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SidebarLayouts from "./sidebarLayouts";
-import { billabong, poppins, segoeui } from "./font";
+import { billabong, segoeui, poppins } from "./font";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
 
@@ -17,6 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+
       <body
         className={cn(billabong.variable, segoeui.variable, poppins.variable)}
       >

@@ -173,3 +173,7 @@
     animation: spin 1s linear infinite;
   }
 }
+
+.active-link {
+  @apply bg-buttonBg border-borderButton text-textButton;
+}

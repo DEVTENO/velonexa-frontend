@@ -30,4 +30,3 @@ export const poppins = Poppins({
   subsets: ["latin"],
   style: "normal",
 });
-
