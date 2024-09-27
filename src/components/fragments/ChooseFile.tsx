@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FilePond, registerPlugin } from "react-filepond";
@@ -26,6 +27,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Plus } from "lucide-react";
 
 export const ChooseFile = () => {
   const [isHoveredFeed, setIsHoveredFeed] = useState<boolean>(false);
@@ -73,8 +75,9 @@ export const ChooseFile = () => {
         acceptedFileTypes={["video/*"]}
       /> */}
       <AlertDialog>
-        <AlertDialogTrigger className="flex justify-between flex-col">
-          Open
+        <AlertDialogTrigger className="flex justify-center items-center flex-col border border-dashed border-[#E9E9E9] text-[#D3D3D3] size-[281px]">
+          <Plus size={180} color="#E9E9E9" fill="#E9E9E9" />
+          Create Media
         </AlertDialogTrigger>
         <AlertDialogContent className=" grid grid-flow-col-dense">
           <AlertDialogHeader className="">
