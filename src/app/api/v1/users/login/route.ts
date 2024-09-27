@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   try {
     const dummyUser: LoginFormData[] = [
       {
-        username: "user-1",
+        username: "user1",
         password: "Rahasia@1",
       },
       {
