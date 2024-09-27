@@ -241,7 +241,10 @@ const LogoProfile = ({
         )}
       >
         {isOpen ? (
-          <MotionDiv className="size-[calc(3rem+7px)] m-auto rounded-full relative overflow-hidden">
+          <Link
+            href={"/user-1"}
+            className="size-[calc(3rem+7px)] m-auto rounded-full relative overflow-hidden"
+          >
             <Image
               src={"/user-profile.jpg"}
               width={900}
@@ -249,10 +252,11 @@ const LogoProfile = ({
               alt="photo profile"
               className="  absolute inset-0"
             />
-          </MotionDiv>
+          </Link>
         ) : (
           <MotionDiv className=" flex flex-col justify-center items-center m-auto  ">
-            <header
+            <Link
+              href={"user-1"}
               className={` 2xl:size-[calc(9rem+3px)] size-28 border-[3px] border-[#3971FF]  rounded-full relative overflow-hidden`}
             >
               <Image
@@ -262,7 +266,7 @@ const LogoProfile = ({
                 alt="photo profile"
                 className="  absolute inset-0 "
               />
-            </header>
+            </Link>
             <main className="font-poppins mt-4 ">
               <span className="flex justify-center items-center text-[calc(1rem+3px)] gap-2  ">
                 {data?.data?.username}
