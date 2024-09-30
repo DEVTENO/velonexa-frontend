@@ -11,7 +11,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import React from "react";
 
-export const PostingOverlay: React.FC = () => {
+type oncancel = {
+  onCancel: () => void;
+};
+
+export const PostingOverlay: React.FC<oncancel> = ({ onCancel }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>Continue</AlertDialogTrigger>
@@ -24,7 +28,7 @@ export const PostingOverlay: React.FC = () => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
           <AlertDialogAction>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
