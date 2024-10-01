@@ -64,6 +64,7 @@ const config = {
         placeholderProfile: "#BDBDBD",
         updateButtonBg: "#EFF4FF",
         updateBtn: "#3971FF",
+        settingProfileNavbar: "#ABABAB",
       },
       borderRadius: {
         lg: "var(--radius)",

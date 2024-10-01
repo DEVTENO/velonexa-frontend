@@ -105,5 +105,5 @@
 }
 
 .active-link {
-  @apply bg-buttonBg border-borderButton text-textButton;
+  @apply bg-buttonBg border border-borderButton text-textButton;
 }
