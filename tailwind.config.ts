@@ -69,6 +69,8 @@ const config = {
         updateButtonBg: "#EFF4FF",
         updateBtn: "#3971FF",
         settingProfileNavbar: "#ABABAB",
+        privateAccountText: "#C1C1C1",
+        privacySwitchColor: "#ff6161",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import AccountPrivacy from "./AccountPrivacy";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -79,7 +80,7 @@ const AccountProfile: React.FC = () => {
                 )}
               />
             </div>
-            <div className="mb-[2.063rem]">
+            <div>
               <FormField
                 control={form.control}
                 name="phoneNumber"
@@ -99,6 +100,7 @@ const AccountProfile: React.FC = () => {
               />
             </div>
           </div>
+          <AccountPrivacy />
         </div>
         <Button type="submit" className="border border-updateBtn bg-updateButtonBg w-[9.75rem] h-[2.688rem] ml-[36.125rem] rounded-[0.813rem] text-updateBtn hover:bg-updateBtn hover:text-white flex items-center justify-center">
           Update
