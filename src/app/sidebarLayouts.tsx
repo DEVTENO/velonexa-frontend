@@ -83,7 +83,7 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
                 pathname === "/direct/inbox" || isOpen
                   ? "w-[4.5rem]"
                   : "xl:w-60 w-[4.5rem]",
-                "fixed top-0 h-screen  overflow-hidden z-[99] ",
+                "fixed top-0 h-screen  overflow-hidden z-30",
                 "bg-white dark:bg-black border border-gray-400",
                 "transition-all"
               )}
@@ -234,7 +234,7 @@ const SearchComponents = (props: { isOpenSearch: boolean }) => {
             animate={{ x: [-500, 0] }}
             exit={{ x: [0, -500] }}
             transition={{ bounce: 0 }}
-            className="fixed top-0 left-[4rem] border border-gray-100 shadow-card bg-white rounded-e-xl w-[25rem] h-screen z-[99]"
+            className="fixed top-0 left-[4rem] border border-gray-100 shadow-card bg-white rounded-e-xl w-[25rem] h-screen z-10"
           >
             <header className="px-4 ">
               <div className="font-semibold text-2xl w-full pl-5 mt-5">

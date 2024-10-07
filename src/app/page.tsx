@@ -31,16 +31,8 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div className="container relative border-2 border-black rounded-xl ml-52 my-1 flex flex-col max-w-[35rem] min-h-lvh">
-      {items.map(({ id, userName, timeStamp, totalLike, totalComment }) => (
-        <APost
-          id={id}
-          userName={userName}
-          timeStamp={timeStamp}
-          totalLike={totalLike}
-          totalComment={totalComment}
-        />
-      ))}
+    <div className="container  border-2 border-black rounded-xl ml-52 my-1 flex flex-col max-w-[35rem] min-h-lvh">
+      <ChooseFile />
     </div>
   );
 };
@@ -56,7 +48,6 @@ const APost: React.FC<Item> = ({
 
   return (
     <>
-      <ChooseFile />
       <div className="container border-2 border-black rounded-2xl flex my-7 min-w-[30rem] min-h-[42rem]">
         <div className="container relative flex flex-col border-dashed -ml-2 my-auto min-w-[27.5rem] w-full h-full min-h-[40rem]">
           <div className="top-elem">
