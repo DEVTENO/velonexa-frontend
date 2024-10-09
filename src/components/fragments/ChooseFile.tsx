@@ -19,29 +19,32 @@ export const ChooseFile = () => {
   const [isHoveredFeed, setIsHoveredFeed] = useState<boolean>(false);
   const [isReelsActive, setIsReelsActive] = useState<boolean>(false);
   const [showFilePond, setShowFilePond] = useState<boolean>(false);
+  const [isContinue, setIsContinue] = useState<boolean>(false);
   const [showPostingOverlay, setShowPostingOverlay] = useState<boolean>(false);
   const [files, setFiles] = useState<any[]>([]);
 
   const handleContinue = (e: React.FormEvent) => {
     e.preventDefault();
-    setShowPostingOverlay(true);
+    if (!showFilePond) {
+      setShowFilePond(true);
+      return;
+    }
   };
+
+  useEffect(() => {
+    if (showFilePond) {
+      setShowPostingOverlay(true);
+    }
+  }, [showFilePond]);
 
   function handleReelsActive() {
     setIsReelsActive(true);
     setIsHoveredFeed(false);
-
-    setTimeout(() => {
-      setShowFilePond(true);
-    }, 2000);
   }
 
   function handleFeedsActive() {
     setIsHoveredFeed(true);
     setIsReelsActive(false);
-    setTimeout(() => {
-      setShowFilePond(true);
-    }, 2000);
   }
 
   function allDeactivateButton() {
