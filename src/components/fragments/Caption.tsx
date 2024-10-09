@@ -6,3 +6,5 @@ type CaptionSectionProps = {
 };
 
 const CaptionSection: React.FC<CaptionSectionProps> = ({ file }) => {};
+
+export default CaptionSection;
