@@ -15,7 +15,7 @@ function User() {
       <div className="flex items-center">
         <div className="flex items-center gap-[13px]">
           <div>
-            <Image src={Photoprofile} />
+            <Image alt="" src={Photoprofile} />
           </div>
           <div>
             <p className="text-[13px] font-medium">Angeline_</p>
@@ -28,7 +28,6 @@ function User() {
             className={`${
               !Button ? "bg-[#3971FF] text-white" : "text-[#3871FF] font-medium"
             }  text-[12px] w-[70px] h-[28px] rounded-[20px]`}
-            href=""
           >
             {!Button ? "Follow" : "Unfollow"}
           </button>

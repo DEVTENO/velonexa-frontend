@@ -14,7 +14,7 @@ const SearchComponents = (props: { isOpenSearch: boolean }) => {
             animate={{ x: [-500, 0] }}
             exit={{ x: [0, -500] }}
             transition={{ bounce: 0 }}
-            className="fixed top-0 left-[4rem] 2xl:left-[8rem] border border-gray-100 shadow-card bg-white rounded-e-xl w-[25rem] h-screen z-[99]"
+            className="fixed top-0 left-[4rem] 2xl:left-[8rem] border border-gray-100 shadow-card bg-white rounded-e-xl w-[25rem] h-screen z-[10]"
           >
             <header className="px-4 ">
               <div className="font-semibold text-2xl w-full pl-5 mt-5">

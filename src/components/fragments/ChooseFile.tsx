@@ -143,7 +143,7 @@ export const ChooseFile = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
 
-          <AlertDialogFooter className="flex absolute top-[250px] ml-20 gap-[220px] right-[40px] flex-grow justify-evenly ">
+          <AlertDialogFooter className="flex absolute top-[250px] ml-20 gap-[220px] right-[40px] flex-grow justify-evenly">
             <AlertDialogCancel
               onClick={allDeactivateButton}
               className="mr-[40px] flex"
