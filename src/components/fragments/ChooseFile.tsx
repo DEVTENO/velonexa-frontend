@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import {
   AlertDialog,
@@ -13,15 +13,42 @@ import {
 } from "@/components/ui/alert-dialog";
 import { PostingOverlay } from "./PostingOverlay";
 import { ShowFilePond } from "./ShowFilePond";
-import * as FilePond from "filepond";
+
+interface fileData {
+  source: string;
+  options: {
+    type: string;
+  };
+}
 
 export const ChooseFile = () => {
   const [isHoveredFeed, setIsHoveredFeed] = useState<boolean>(false);
   const [isReelsActive, setIsReelsActive] = useState<boolean>(false);
   const [showFilePond, setShowFilePond] = useState<boolean>(false);
-  const [isContinue, setIsContinue] = useState<boolean>(false);
-  const [showPostingOverlay, setShowPostingOverlay] = useState<boolean>(false);
-  const [files, setFiles] = useState<any[]>([]);
+  const [files, setFiles] = useState<fileData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleUpdateFiles = (fileItems: any[]) => {
+    setFiles(
+      fileItems.map((fileItem) => ({
+        source: fileItem.serverId,
+        options: { type: "local" },
+      }))
+    );
+  };
+
+  const handleUpload = async () => {
+    try {
+      const mockServerResponse = files.map((file) => ({
+        source: `/uploads/${file.source}`,
+        options: { type: "local" },
+      }));
+      setFiles(mockServerResponse);
+    } catch (error) {
+      setError("Upload Failed");
+      console.error("Upload Error", error);
+    }
+  };
 
   const handleContinue = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,12 +57,6 @@ export const ChooseFile = () => {
       return;
     }
   };
-
-  useEffect(() => {
-    if (showFilePond) {
-      setShowPostingOverlay(true);
-    }
-  }, [showFilePond]);
 
   function handleReelsActive() {
     setIsReelsActive(true);

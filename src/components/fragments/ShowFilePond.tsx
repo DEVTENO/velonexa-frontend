@@ -9,7 +9,6 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginImageTransform from "filepond-plugin-image-transform";
 import FilePondPluginImageCrop from "filepond-plugin-image-crop";
 import FilePondPluginImageResize from "filepond-plugin-image-resize";
-
 import { X } from "lucide-react";
 
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
@@ -35,6 +34,23 @@ type showFilePondProps = {
   allDeactivateButton: () => void;
   handleFeedsActive: () => void;
   handleReelsActive: () => void;
+};
+
+type ExProps = {
+  allDeactivateButton: () => void;
+};
+
+// Props didapat dari komponen ShowFilePond yang berasal dari ChooseFile.tsx//
+export const EX: React.FC<ExProps> = ({ allDeactivateButton }) => {
+  return (
+    <X
+      className=" relative  hover:bg-red-100 cursor-pointer ml-auto mr-10 bottom-3"
+      onClick={allDeactivateButton}
+      color="red"
+      size={36}
+      strokeWidth={2.5}
+    />
+  );
 };
 
 // Kode ini digunakan pada src\components\fragments\ChooseFile.tsx
@@ -87,13 +103,12 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
           <>
             {isReelsActive ? (
               <>
-                <X
-                  className=" relative  hover:bg-red-100 cursor-pointer ml-auto mr-10 bottom-3"
-                  onClick={allDeactivateButton}
-                  color="red"
-                  size={36}
-                  strokeWidth={2.5}
-                />
+                {/* //Props allDeactivateButton dilempar dari komponen
+                ChooseFile.tsx */}
+
+                <EX allDeactivateButton={allDeactivateButton} />
+
+                {/* Komponen FilePond ini khusus untuk Reels */}
                 <FilePond
                   className="relative flex items-center mr-10"
                   files={files}
@@ -107,13 +122,12 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
               </>
             ) : (
               <>
-                <X
-                  className=" relative  hover:bg-red-100 cursor-pointer ml-auto mr-10 bottom-3"
-                  onClick={allDeactivateButton}
-                  color="red"
-                  size={36}
-                  strokeWidth={2.5}
-                />
+                {/* //Props allDeactivateButton dilempar dari komponen
+                ChooseFile.tsx */}
+                <EX allDeactivateButton={allDeactivateButton} />
+
+                {/* Komponen FilePond ini khusus untuk Reels */}
+
                 <FilePond
                   className="relative flex items-center mr-10"
                   files={files}
@@ -123,6 +137,22 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
                   allowFileTypeValidation={true}
                   acceptedFileTypes={["image/*"]}
                   stylePanelAspectRatio="1:1"
+                  server={{
+                    process: async (
+                      fieldName,
+                      file,
+                      metadata,
+                      load,
+                      error,
+                      progress,
+                      abort
+                    ) => {
+                      try {
+                        const formData = new FormData();
+                        formData.append(fieldName, file, file.name);
+                      } catch (error) {}
+                    },
+                  }}
                 />
               </>
             )}
