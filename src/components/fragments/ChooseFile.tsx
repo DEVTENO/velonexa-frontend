@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 
 import {
@@ -11,6 +12,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Plus } from "lucide-react";
+
 import { PostingOverlay } from "./PostingOverlay";
 import { ShowFilePond } from "./ShowFilePond";
 
@@ -78,8 +81,9 @@ export const ChooseFile = () => {
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger className="flex justify-between flex-col">
-          Open
+        <AlertDialogTrigger className="flex justify-center items-center flex-col border border-dashed border-[#E9E9E9] text-[#D3D3D3] size-[281px]">
+          <Plus size={180} color="#E9E9E9" fill="#E9E9E9" />
+          Create Media
         </AlertDialogTrigger>
 
         <AlertDialogContent className=" grid grid-flow-col-dense">
