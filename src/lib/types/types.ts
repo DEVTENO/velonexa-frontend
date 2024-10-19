@@ -6,6 +6,10 @@ interface FetchApiResponse<ResultsType> {
   error?: WebError;
 }
 
+type UploadResponse = {
+  source: string | undefined;
+};
+
 interface WebError {
   code: number;
   status: string;
@@ -183,4 +187,19 @@ interface UserTagged {
   countLike: number;
   countComment: number;
 }
-export type { UserProfile, FetchApiResponse, UserDetail, UserFollowers, UserFollowing, UserBookmark, UserReels, UserTagged, UserPosts, UserBookmarkDetail, OtherUserPost, RegisterFormData, LoginFormData };
+export type {
+  UserProfile,
+  FetchApiResponse,
+  UserDetail,
+  UserFollowers,
+  UserFollowing,
+  UserBookmark,
+  UserReels,
+  UserTagged,
+  UserPosts,
+  UserBookmarkDetail,
+  OtherUserPost,
+  RegisterFormData,
+  LoginFormData,
+  UploadResponse,
+};

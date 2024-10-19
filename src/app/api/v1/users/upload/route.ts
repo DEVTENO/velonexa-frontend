@@ -1,12 +1,5 @@
+import { FetchApiResponse, UploadResponse } from "@/lib/types/types";
 import { NextResponse } from "next/server";
-
-export interface UploadResponse {
-  succes: boolean;
-  message: string;
-  data: {
-    source: string;
-  };
-}
 
 export async function POST(request: Request) {
   try {
@@ -16,14 +9,12 @@ export async function POST(request: Request) {
       .toString(36)
       .substring(2, 15)}.${file.name.split(".").pop()}`;
 
-    const uploadFile = {
-      source: `/uploads/${fileName}`,
-    };
-
-    const response: UploadResponse = {
-      succes: true,
+    const response: FetchApiResponse<UploadResponse> = {
+      success: true,
       message: "Upload successful!",
-      data: uploadFile,
+      data: {
+        source: `/uploads/${fileName}`,
+      },
     };
     return NextResponse.json(response, { status: 201 });
   } catch (error) {

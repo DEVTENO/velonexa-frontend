@@ -12,6 +12,7 @@ import FilePondPluginImageResize from "filepond-plugin-image-resize";
 import { X } from "lucide-react";
 
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { FetchApiResponse, UploadResponse } from "@/lib/types/types";
 
 registerPlugin(
   FilePondPluginImageExifOrientation,
@@ -66,9 +67,6 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
   handleFeedsActive,
   handleReelsActive,
 }) => {
-  // useEffect(() => {
-  //   const pond = FilePond.create({});
-  // });
   return (
     <>
       {!showFilePond && (
@@ -149,7 +147,25 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
                     ) => {
                       try {
                         const formData = new FormData();
-                        formData.append(fieldName, file, file.name);
+                        formData.append(
+                          fieldName,
+                          file,
+                          file?.name || "Untitled"
+                        );
+
+                        const res = await fetch("/api/v1/users/upload", {
+                          body: formData,
+                        });
+
+                        if (!res.ok) {
+                          throw new Error(`Upload failed: ${res.status}`);
+                        }
+
+                        const data =
+                          (await res.json()) as FetchApiResponse<UploadResponse>;
+                        if (data.success) {
+                          load(data.data?.source ?? "");
+                        }
                       } catch (error) {}
                     },
                   }}

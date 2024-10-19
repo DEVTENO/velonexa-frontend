@@ -131,13 +131,21 @@ export const ChooseFile = () => {
           >
             <AlertDialogCancel
               onClick={allDeactivateButton}
-              className="mr-[40px] flex"
+              className={
+                files.length > 0
+                  ? "relative bottom-[140px] mr-[40px] flex"
+                  : "mr-[40px] flex"
+              }
             >
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleContinue}
-              className="flex right-6 ml-[50px]"
+              className={
+                files.length > 0
+                  ? "relative bottom-[140px] mr-[40px] flex"
+                  : "mr-[40px] flex"
+              }
             >
               Continue
             </AlertDialogAction>
