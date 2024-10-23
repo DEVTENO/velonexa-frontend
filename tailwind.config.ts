@@ -68,6 +68,11 @@ const config = {
         placeholderProfile: "#BDBDBD",
         updateButtonBg: "#EFF4FF",
         updateBtn: "#3971FF",
+        settingProfileNavbar: "#ABABAB",
+        privateAccountText: "#C1C1C1",
+        privacySwitchColor: "#ff6161",
+        unblockBorder: "#F44336",
+        unblockBgBtn: "#FFEFEF",
       },
       borderRadius: {
         lg: "var(--radius)",
