@@ -3,15 +3,16 @@ import { Button } from "./button";
 import Image from "next/image";
 
 type Profile = {
+  id: number;
   image: string;
   name: string;
 };
 
 const BlockProfile: React.FC = () => {
   const blockedProfiles: Profile[] = [
-    { image: "/user-profile.jpg", name: "Jokowi" },
-    { image: "/user-profile.jpg", name: "Jokowi" },
-    { image: "/user-profile.jpg", name: "Jokowi" },
+    { id: 1, image: "/user-profile.jpg", name: "Jokowi" },
+    { id: 2, image: "/user-profile.jpg", name: "Jokowi" },
+    { id: 3, image: "/user-profile.jpg", name: "Jokowi" },
   ];
 
   return (
@@ -21,11 +22,11 @@ const BlockProfile: React.FC = () => {
           <p className="font-medium text-[1.188rem]">Block</p>
           <p className="text-base mt-[0.125rem] font-normal text-secondaryText">list of accounts you blocked</p>
           <div className="w-[40.75rem] h-[11.75rem] mt-[2.063rem] gap-y-4 flex flex-col">
-            {blockedProfiles.map(({ image, name }) => (
-              <div key={name} className="w-[40.75rem] h-[3.25rem] rounded-[0.438rem] px-[1.25rem] border flex flex-wrap justify-between border-unblockBorder items-center">
+            {blockedProfiles.map(({ id, image, name }) => (
+              <div key={id} className="w-[40.75rem] h-[3.25rem] rounded-[0.438rem] px-[1.25rem] border flex flex-wrap justify-between border-unblockBorder items-center">
                 <div className="flex flex-wrap">
                   <div className="relative overflow-hidden rounded-full" style={{ width: "23px", height: "23px" }}>
-                    <Image alt="Profile Image" src={image} fill style={{ objectFit: "cover" }} />
+                    <Image alt="Profile Image" src={image} sizes="100vw" fill style={{ objectFit: "cover" }} />
                   </div>
                   <p className="ml-[0.625rem] text-unblockBorder italic">{name}</p>
                 </div>
