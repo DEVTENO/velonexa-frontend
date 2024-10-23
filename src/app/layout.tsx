@@ -17,11 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-
-      <body
-        className={cn(billabong.variable, segoeui.variable, poppins.variable)}
-      >
-        <SidebarLayouts>{children}</SidebarLayouts>
+      <body className={cn(billabong.variable, segoeui.variable, poppins.variable)}>
+        {/* <SidebarLayouts>{children}</SidebarLayouts> */}
+        {children}
         <Toaster richColors />
       </body>
     </html>
