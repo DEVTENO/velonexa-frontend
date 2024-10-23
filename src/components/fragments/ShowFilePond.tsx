@@ -13,6 +13,7 @@ import { X } from "lucide-react";
 
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { FetchApiResponse, UploadResponse } from "@/lib/types/types";
+import { BrokenImage } from "./PostingOverlay";
 
 registerPlugin(
   FilePondPluginImageExifOrientation,
@@ -120,7 +121,7 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
               </>
             ) : (
               <>
-                {/* //Props allDeactivateButton dilempar dari komponen
+                {/* //Props allDeactivateButton menerima dari komponen
                 ChooseFile.tsx */}
                 <EX allDeactivateButton={allDeactivateButton} />
 
@@ -164,7 +165,7 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
                         const data =
                           (await res.json()) as FetchApiResponse<UploadResponse>;
                         if (data.success) {
-                          load(data.data?.source ?? "");
+                          load(data.data?.source ?? <BrokenImage />);
                         }
                       } catch (error) {}
                     },

@@ -7,7 +7,7 @@ interface FetchApiResponse<ResultsType> {
 }
 
 type UploadResponse = {
-  source: string | undefined;
+  source: string;
 };
 
 interface WebError {
