@@ -14,5 +14,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       return <AccountLayout />;
     case "block":
       return <BlockLayout />;
+    default:
+      return <ProfileLayout />;
   }
 }
