@@ -24,7 +24,7 @@ const SearchComponents = (props: { isOpenSearch: boolean }) => {
                 <input
                   type="text"
                   className="w-full bg-transparent outline-none text-black placeholder:text-black placeholder:font-light"
-                  placeholder="Cari"
+                  placeholder="Cari..."
                 />
                 <button>
                   <X color="black" size={15} />
