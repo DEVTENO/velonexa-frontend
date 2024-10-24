@@ -102,7 +102,7 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
               pathname === "/direct/inbox" || isOpen
                 ? "w-[4.5rem] 2xl:w-[129px]"
                 : "xl:w-60 2xl:w-[368px]  w-[4.5rem]",
-              "fixed top-0 h-screen  overflow-hidden z-[99] ",
+              "fixed top-0 h-screen  overflow-hidden ",
               "bg-white dark:bg-black border border-gray-400",
               "transition-all"
             )}
