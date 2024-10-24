@@ -5,7 +5,6 @@ import { cn, fetcher } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 import {
   Compass,
-  Dot,
   Heart,
   Home,
   MessageCircle,
@@ -95,7 +94,7 @@ export default function SidebarLayouts({ children }: { children: ReactNode }) {
       {isAuthRoute ? (
         <main>{children}</main>
       ) : (
-        <main className="w-full flex font-poppins ">
+        <main className="w-full flex font-poppins    ">
           <SearchComponents key={"search"} isOpenSearch={isOpenSearch} />
           <MotionDiv
             key={"sidebars"}
