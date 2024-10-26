@@ -17,7 +17,7 @@ import { Plus } from "lucide-react";
 import { PostingOverlay } from "./PostingOverlay";
 import { ShowFilePond } from "./ShowFilePond";
 
-interface fileData {
+export interface fileData {
   source: string;
   options: {
     type: string;
@@ -100,16 +100,14 @@ export const ChooseFile = () => {
               {files.length > 0 ? (
                 <>
                   <PostingOverlay
+                    files={files}
                     Images={files}
                     AlertDialogDescription={AlertDialogDescription}
                   />
-                  {(() => {
-                    console.log(files);
-                    return null; // Atau return elemen JSX jika diperlukan
-                  })()}
                 </>
               ) : (
                 <ShowFilePond
+                  error={error}
                   showFilePond={showFilePond}
                   isHoveredFeed={isHoveredFeed}
                   isReelsActive={isReelsActive}
@@ -140,14 +138,14 @@ export const ChooseFile = () => {
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={handleContinue}
+              onClick={files.length > 0 ? handleUpload : handleContinue}
               className={
                 files.length > 0
                   ? "relative bottom-[140px] mr-[40px] flex"
                   : "mr-[40px] flex"
               }
             >
-              Continue
+              {files.length > 0 ? "Upload" : "Continue"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

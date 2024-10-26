@@ -66,7 +66,7 @@ const Responsive1280 = (props: DesktopResponsiveProps) => {
   };
 
   return (
-    <div className="block 2xl:hidden ">
+    <div className="block 2xl:hidden  left-20 gap-8">
       <motion.div
         key={"form"}
         transition={{ bounce: 0, duration: 1 }}
@@ -92,10 +92,10 @@ const Responsive1280 = (props: DesktopResponsiveProps) => {
         style={
           value == pathname
             ? {
-                position: "absolute",
+                position: "relative",
                 x: pathname == "/auth/login" ? 0 : 683,
               }
-            : { position: "absolute", x: pathname == "/auth/login" ? 683 : 0 }
+            : { position: "relative", x: pathname == "/auth/login" ? 683 : 0 }
         }
         animate={animationBackground()}
         className="w-1/2 h-screen"
@@ -105,7 +105,7 @@ const Responsive1280 = (props: DesktopResponsiveProps) => {
           alt="bg-auth"
           width={1920}
           height={1080}
-          className="h-full object-cover "
+          className="h-full relative"
         />
       </motion.div>
     </div>

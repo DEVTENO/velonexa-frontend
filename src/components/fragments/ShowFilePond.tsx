@@ -14,6 +14,7 @@ import { X } from "lucide-react";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { FetchApiResponse, UploadResponse } from "@/lib/types/types";
 import { BrokenImage } from "./PostingOverlay";
+import useCreatePost from "@/store/post/useCreatePost";
 
 registerPlugin(
   FilePondPluginImageExifOrientation,
@@ -26,11 +27,12 @@ registerPlugin(
 );
 
 type showFilePondProps = {
+  error: any;
   showFilePond: boolean;
   isReelsActive: boolean;
   isHoveredFeed: boolean;
-  setFiles: any;
   files: any;
+  setFiles: any;
   AlertDialogDescription: any;
 
   allDeactivateButton: () => void;
@@ -61,13 +63,15 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
   showFilePond,
   isHoveredFeed,
   isReelsActive,
-  setFiles,
   files,
+  setFiles,
+  error,
   AlertDialogDescription,
   allDeactivateButton,
   handleFeedsActive,
   handleReelsActive,
 }) => {
+  const { setImageUrl } = useCreatePost();
   return (
     <>
       {!showFilePond && (
@@ -131,6 +135,7 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
                   className="relative flex items-center mr-10"
                   files={files}
                   allowPaste={true}
+                  allowImagePreview={true}
                   onupdatefiles={setFiles}
                   allowMultiple={false}
                   allowFileTypeValidation={true}
@@ -165,9 +170,12 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
                         const data =
                           (await res.json()) as FetchApiResponse<UploadResponse>;
                         if (data.success) {
+                          setImageUrl(data.data?.source as string);
                           load(data.data?.source ?? <BrokenImage />);
                         }
-                      } catch (error) {}
+                      } catch (error) {
+                        error;
+                      }
                     },
                   }}
                 />

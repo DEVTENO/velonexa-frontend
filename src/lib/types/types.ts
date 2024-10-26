@@ -22,10 +22,10 @@ interface WebError {
  * @property {string} email - Alamat email yang valid.
  */
 
-type LoginFormData = {
+interface LoginFormData {
   username: string;
   password: string;
-};
+}
 
 /**
  * @typedef {Object} RegisterFormData - Data yang dikirimkan pada saat register
