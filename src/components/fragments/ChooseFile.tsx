@@ -49,7 +49,6 @@ export const ChooseFile = () => {
       setFiles(mockServerResponse);
     } catch (error) {
       setError("Upload Failed");
-      console.error("Upload Error", error);
     }
   };
 

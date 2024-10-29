@@ -26,19 +26,19 @@ registerPlugin(
   FilePondPluginImageResize
 );
 
-type showFilePondProps = {
+interface showFilePondProps {
   error: any;
   showFilePond: boolean;
-  isReelsActive: boolean;
   isHoveredFeed: boolean;
   files: any;
   setFiles: any;
   AlertDialogDescription: any;
+  previewFile?: any;
 
   allDeactivateButton: () => void;
   handleFeedsActive: () => void;
   handleReelsActive: () => void;
-};
+}
 
 type ExProps = {
   allDeactivateButton: () => void;
@@ -65,6 +65,7 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
   isReelsActive,
   files,
   setFiles,
+  previewFile = false,
   error,
   AlertDialogDescription,
   allDeactivateButton,
@@ -129,13 +130,13 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
                 ChooseFile.tsx */}
                 <EX allDeactivateButton={allDeactivateButton} />
 
-                {/* Komponen FilePond ini khusus untuk Reels */}
+                {/* Komponen FilePond ini khusus untuk Feeds */}
 
                 <FilePond
                   className="relative flex items-center mr-10"
                   files={files}
                   allowPaste={true}
-                  allowImagePreview={true}
+                  allowImagePreview={previewFile}
                   onupdatefiles={setFiles}
                   allowMultiple={false}
                   allowFileTypeValidation={true}

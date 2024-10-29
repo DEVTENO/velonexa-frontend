@@ -1,7 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { TriangleAlert } from "lucide-react";
+import { TriangleAlert, Turtle } from "lucide-react";
 import { fileData } from "./ChooseFile";
+import { FilePond, registerPlugin } from "react-filepond";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import { ShowFilePond } from "./ShowFilePond";
+registerPlugin(FilePondPluginImagePreview);
 
 type showPostingOverlayProps = {
   AlertDialogDescription: any;
@@ -30,18 +34,7 @@ export const PostingOverlay: React.FC<showPostingOverlayProps> = ({
     <div>
       <AlertDialogDescription>
         {Images.length > 0 ? (
-          <div className="container">
-            {files.map((file) => (
-              <div key={file.source}>
-                <Image
-                  src={file.source}
-                  alt="Gambar postingan"
-                  width={100}
-                  height={100}
-                />
-              </div>
-            ))}
-          </div>
+          <ShowFilePond previewFile={true} />
         ) : (
           <div className="relative bottom-[150px] m-auto items-center flex flex-col">
             <BrokenImage />
