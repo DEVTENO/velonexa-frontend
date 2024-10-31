@@ -9,52 +9,58 @@ import CommentOverlay from "./CommentOverlay";
 import React, { useState } from "react";
 
 interface LikedContent {
-  handleExpandOverlay: any,
-  handleLike: any,
-  Like: any,
-  TotalLike: number
-  user: any
-  address : any
-  upload_time : any
-  foto : any
-  id : number
-  ExpandOverlay : any
+  handleExpandOverlay: any;
+  handleLike: any;
+  Like: any;
+  TotalLike: number;
+  user: any;
+  address: any;
+  upload_time: any;
+  foto: any;
+  id: number;
+  ExpandOverlay: any;
 }
 
-const FeedCard = ({ ExpandOverlay,handleExpandOverlay, handleLike, Like, TotalLike, user, address, upload_time, foto, id} : LikedContent) => {
-console.log(Like);
-
+const FeedCard = ({
+  ExpandOverlay,
+  handleExpandOverlay,
+  handleLike,
+  Like,
+  TotalLike,
+  user,
+  address,
+  upload_time,
+  id,
+}: LikedContent) => {
   const [ExtendCaption, setExtendCaption] = useState(false);
-  
+
   function handleExtendCaption() {
     setExtendCaption(!ExtendCaption);
   }
 
   return (
     <>
-    {ExpandOverlay && <CommentOverlay 
-    ExpandOverlay={ExpandOverlay}
+      {ExpandOverlay && (
+        <CommentOverlay
+          ExpandOverlay={ExpandOverlay}
           handleLike={handleLike}
           handleExpandOverlay={handleExpandOverlay}
           Like={Like}
           id={id}
-          />}
-    
+        />
+      )}
 
       <div className="flex justify-center">
         <div className="max-w-[457.8px] flex flex-col gap-[15px] border-[1px] hover:border-[#3971FF] px-[35px] py-[44px] rounded-xl">
-
           <div className="flex justify-between items-center">
             <div className="flex gap-[15px]">
-              <Image src={FotoProfile} alt=""/>
+              <Image src={FotoProfile} alt="" />
               <div>
                 <div className="flex items-center gap-4">
                   <p className="text-[16px]">{user}</p>
                   <li className="text-[11px] text-[#bababa]">{upload_time}</li>
                 </div>
-                <p className="text-[#5f5f5f] text-[12px]">
-                  {address}
-                </p>
+                <p className="text-[#5f5f5f] text-[12px]">{address}</p>
               </div>
             </div>
 
@@ -68,7 +74,12 @@ console.log(Like);
 
           <div className="flex justify-between">
             <div className="flex gap-[19px]">
-              <LikeIcon className="cursor-pointer" onClick={()=> handleLike(id)} fill={Like ? 'red' :"none" } stroke={Like ? 0 : 100}/>
+              <LikeIcon
+                className="cursor-pointer"
+                onClick={() => handleLike(id)}
+                fill={Like ? "red" : "none"}
+                stroke={Like ? 0 : 100}
+              />
               <ShareIcon />
             </div>
             <SaveIcon className="cursor-pointer" />
@@ -112,11 +123,12 @@ console.log(Like);
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-2"> 
-           
-            <p onClick={handleExpandOverlay} className="text-[#888888] text-[14px] font-medium italic underline cursor-pointer">
+          <div className="flex flex-col gap-2">
+            <p
+              onClick={handleExpandOverlay}
+              className="text-[#888888] text-[14px] font-medium italic underline cursor-pointer"
+            >
               See 1.000 Comment
-             
             </p>
             <input
               className="bg-[#F8F8F8] text-[#9B9B9B] px-[20px] py-[11px] rounded-md focus:outline-1 focus:outline outline-slate-200"
@@ -128,6 +140,6 @@ console.log(Like);
       </div>
     </>
   );
-}
+};
 
 export default FeedCard;

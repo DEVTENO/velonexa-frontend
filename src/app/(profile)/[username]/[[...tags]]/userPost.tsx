@@ -10,12 +10,12 @@ export default async function UserPost(
   return (
     <div className={`w-full mt-6`}>
       {data.length > 0 ? (
-        <div className="w-full max-w-[55rem] gap-1 flex flex-wrap   m-auto ">
+        <div className="w-full max-w-[55rem] gap-1 flex flex-wrap  m-auto ">
           {data.map((item, i) => (
             <Link
               href={`/p/${item.mediaId}`}
               key={item.mediaId}
-              className="w-72 h-72  group relative z-10"
+              className="w-72 h-72  group relative"
             >
               <HoverCard
                 countLike={item.countLike}

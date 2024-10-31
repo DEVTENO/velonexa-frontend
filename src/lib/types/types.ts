@@ -2,7 +2,7 @@ interface FetchApiResponse<ResultsType> {
   success: boolean;
   message: string;
   username?: string;
-  data?: ResultsType;
+  data: ResultsType;
   error?: WebError;
 }
 
@@ -183,4 +183,18 @@ interface UserTagged {
   countLike: number;
   countComment: number;
 }
-export type { UserProfile, FetchApiResponse, UserDetail, UserFollowers, UserFollowing, UserBookmark, UserReels, UserTagged, UserPosts, UserBookmarkDetail, OtherUserPost, RegisterFormData, LoginFormData };
+export type {
+  UserProfile,
+  FetchApiResponse,
+  UserDetail,
+  UserFollowers,
+  UserFollowing,
+  UserBookmark,
+  UserReels,
+  UserTagged,
+  UserPosts,
+  UserBookmarkDetail,
+  OtherUserPost,
+  RegisterFormData,
+  LoginFormData,
+};
