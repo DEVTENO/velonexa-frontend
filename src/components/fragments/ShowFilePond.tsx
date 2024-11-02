@@ -27,9 +27,10 @@ registerPlugin(
 );
 
 interface showFilePondProps {
-  error: any;
-  showFilePond: boolean;
-  isHoveredFeed: boolean;
+  error?: any;
+  showFilePond?: boolean;
+  isReelsActive?: boolean;
+  isHoveredFeed?: boolean;
   files: any;
   setFiles: any;
   AlertDialogDescription: any;
@@ -85,7 +86,6 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
               className={`cursor-pointer hover:bg-[#3971FF]  border rounded-xl 
              ${isReelsActive ? "bg-[#3971FF]  text-white" : ""}`}
               fill={`${isReelsActive ? "#ffffff" : "#CFCFCF"}`}
-              isActive={isReelsActive}
             />
           </AlertDialogDescription>
           <AlertDialogDescription
@@ -136,8 +136,8 @@ export const ShowFilePond: React.FC<showFilePondProps> = ({
                   className="relative flex items-center mr-10"
                   files={files}
                   allowPaste={true}
-                  allowImagePreview={previewFile}
-                  onupdatefiles={setFiles}
+                  allowImagePreview={true}
+                  onupdatefiles={}
                   allowMultiple={false}
                   allowFileTypeValidation={true}
                   acceptedFileTypes={["image/*"]}

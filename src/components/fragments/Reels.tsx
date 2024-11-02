@@ -3,7 +3,7 @@ import React from "react";
 interface ReelsProps {
   className: string;
   fill: string;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export const Reels: React.FC<ReelsProps> = ({ className, fill, isActive }) => {

@@ -25,9 +25,9 @@ export interface fileData {
 }
 
 export const ChooseFile = () => {
-  const [isHoveredFeed, setIsHoveredFeed] = useState<boolean>(false);
-  const [isReelsActive, setIsReelsActive] = useState<boolean>(false);
-  const [showFilePond, setShowFilePond] = useState<boolean>(false);
+  const [isHoveredFeed, setIsHoveredFeed] = useState(false);
+  const [isReelsActive, setIsReelsActive] = useState(false);
+  const [showFilePond, setShowFilePond] = useState(false);
   const [files, setFiles] = useState<fileData[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -96,28 +96,18 @@ export const ChooseFile = () => {
             </AlertDialogTitle>
 
             <>
-              {files.length > 0 ? (
-                <>
-                  <PostingOverlay
-                    files={files}
-                    Images={files}
-                    AlertDialogDescription={AlertDialogDescription}
-                  />
-                </>
-              ) : (
-                <ShowFilePond
-                  error={error}
-                  showFilePond={showFilePond}
-                  isHoveredFeed={isHoveredFeed}
-                  isReelsActive={isReelsActive}
-                  setFiles={setFiles}
-                  files={files}
-                  AlertDialogDescription={AlertDialogDescription}
-                  allDeactivateButton={allDeactivateButton}
-                  handleFeedsActive={handleFeedsActive}
-                  handleReelsActive={handleReelsActive}
-                />
-              )}
+              <ShowFilePond
+                error={error}
+                showFilePond={showFilePond}
+                isHoveredFeed={isHoveredFeed}
+                isReelsActive={isReelsActive}
+                setFiles={setFiles}
+                files={files}
+                AlertDialogDescription={AlertDialogDescription}
+                allDeactivateButton={allDeactivateButton}
+                handleFeedsActive={handleFeedsActive}
+                handleReelsActive={handleReelsActive}
+              />
             </>
           </AlertDialogHeader>
 
@@ -130,7 +120,7 @@ export const ChooseFile = () => {
               onClick={allDeactivateButton}
               className={
                 files.length > 0
-                  ? "relative bottom-[140px] mr-[40px] flex"
+                  ? "relative bottom-[30px] mr-[40px] flex"
                   : "mr-[40px] flex"
               }
             >
@@ -140,7 +130,7 @@ export const ChooseFile = () => {
               onClick={files.length > 0 ? handleUpload : handleContinue}
               className={
                 files.length > 0
-                  ? "relative bottom-[140px] mr-[40px] flex"
+                  ? "relative bottom-[30px] mr-[40px] flex"
                   : "mr-[40px] flex"
               }
             >
