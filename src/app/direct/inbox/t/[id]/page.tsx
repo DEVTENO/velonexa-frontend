@@ -42,7 +42,7 @@ const MessageComponents = (props: { id: string }) => {
       <header className="w-full h-full 2xl:max-w-[619px]  max-h-[84px] flex bg-yellow-300">
         Image
         <div>
-          <h1>Name</h1>
+          <h1>{id}</h1>
           <p>status</p>
         </div>
       </header>
