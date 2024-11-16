@@ -55,9 +55,6 @@ function Home() {
     console.log(feeds);
   }
 
-  // useEffect(() => {
-  //   console.log("Data updated:", feeds);
-  // }, [feeds]);
   return (
     <>
       <div className=" relative w-full -ml-60"></div>
